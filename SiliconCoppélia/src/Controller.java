@@ -29,6 +29,9 @@ public class Controller {
         System.out.println("Agency " + ethics[ethicInd]);
 
         Ethics eth = new Ethics(ethicInd, Math.random());
+        Relevance ethRel = new Relevance(Math.random());
+        Valence ethVal = new Valence(Math.random());
+        Similarity ethSim = new Similarity(Math.random());
         Affordance aff = new Affordance(affInd, Math.random());
 
 
