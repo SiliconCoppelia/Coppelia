@@ -1,52 +1,43 @@
 package dimensions;
 
-//import java.util.Scanner;
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @Author: Anthony, Yooki
- * @Date: 01/07/2022
- * @Description:
+ * @Author Anthony Z.
+ * @Date 22/6/2022
+ * @Description: always related to being friends
  */
-public class Involvement{
+public class Involvement {
 
-    private int index;
-    public double num;
-    private String[] invl =new String[]{
-            "I feel you as my extremely friend",
-            "I feel you as my close friend",
-            "I feel you as my friend",
-            "I somewhat feel you as my friend",
-            "I can hardly feel you as my friend"
-    };
+    private double index;
 
-    public Involvement(double ethics, double age, double income, double pet, double relevance, double valence){
+    private Map<Integer, String> involvementMap;
 
-        double [][] arr={{ethics,age,income,pet,relevance,valence}};
-        double weight=(double) 1/(double) 6;
-        double [][] B_i={{weight},{weight},{weight},{weight},{weight},{weight}};
-        MatrixComputation counterIndicative=new MatrixComputation(1,6, arr);
-        MatrixComputation involvement=new MatrixComputation(6,1, B_i);
-        //System.out.println("invl is "+involvement.multiple(involvement,counterIndicative));
-        //System.out.println("Involvement");
-        this.num = involvement.multiple(counterIndicative,involvement)[0][0];
-        //System.out.println("The num is "+this.num);
-        //System.out.println();
+    public Involvement(double index){
+        if(index<0 || index>1){
+            throw new InvalidParameterException();
+        }
+        this.index = index;
+        involvementMap = new HashMap<>();
+        this.initialize();
     }
 
-    public String getDistance() {
+    private void initialize() {
+        involvementMap.put(5, "I am your best friend forever!");
+        involvementMap.put(4, "I am your good friend");
+        involvementMap.put(3, "I am your friend.");
+        involvementMap.put(2, "I have warm feelings for you");
+        involvementMap.put(1, "I feel friendly towards you");
 
-        return invl[(int)(this.num*5)];
     }
 
 
-/*
-    public String compare() {
-        if(this.num < 0.2) this.index = 4;
-        else if(this.num<0.4) this.index = 3;
-        else if(this.num<0.6) this.index = 2;
-        else if(this.num<0.8) this.index = 1;
-        else this.index = 0;
-        return this.invl[this.index];
+    public String getStatement() {
+        return involvementMap.get(Math.ceil(this.index*5));
     }
- */
+
+
+
 }
