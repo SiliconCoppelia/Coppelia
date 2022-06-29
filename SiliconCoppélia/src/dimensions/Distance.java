@@ -16,8 +16,12 @@ public class Distance{
     private Map<Integer, String> distanceMap;
 
     public Distance(double index){
+        if(index<0 || index>1){
+            throw new IllegalArgumentException();
+        }
         this.index = index;
         this.distanceMap = new HashMap<>();
+        this.initialize();
     }
 
     private void initialize() {
