@@ -2,7 +2,6 @@ import dimensions.*;
 
 import java.lang.*;
 
-import static java.lang.Integer.parseInt;
 
 public class Controller {
 
@@ -28,19 +27,12 @@ public class Controller {
         int affInd = getRandomNumber(0, affordance.length);
         System.out.println("Agency " + ethics[ethicInd]);
 
-        //1. help you   2. be your friend
-        String goal="help you.";
-
         Ethics eth = new Ethics(ethicInd, Math.random());
-        Relevance ethRel = new Relevance(Math.random(), goal);
-        Valence ethVal = new Valence(Math.random());
-        Similarity ethSim = new Similarity(Math.random());
-        Affordance aff = new Affordance(affInd, Math.random());
 
 
         // Step 4: sentence formulation
-        System.out.println(eth.getResponse());
-        System.out.println(aff.getResponse());
+        System.out.println(eth.getObservation());
+        System.out.println(eth.getAssessment());
 
         System.exit(0);
     }
