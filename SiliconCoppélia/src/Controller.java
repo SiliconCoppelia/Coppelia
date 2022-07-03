@@ -26,12 +26,14 @@ public class Controller {
 
         Ethics eth = new Ethics(ethicInd, Math.random());
         Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
+        Valence ethVal = new Valence(Math.random());
 
 
         // Step 4: sentence formulation
         System.out.println(eth.getObservation());
         System.out.println(eth.getAssessment());
         System.out.println(ethRel.getRelevance());
+        System.out.println(ethVal.getValence());
 
         System.exit(0);
     }
