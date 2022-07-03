@@ -4,11 +4,9 @@ package dimensions;
 
 public class Relevance {
 
-    private int index;
-    private float num;
-    private String level;
+    private double relevance;
     private String goal;//"help you" or "be your friend"
-    private String[] rel=new String[]{
+    private final String[] rel=new String[]{
             "This is totally trivial with respect to my concern to",
             "That is beside the point of",
             "That has little to do with",
@@ -19,22 +17,33 @@ public class Relevance {
             "That is essential for",
             "This is critical to my concern to"
     };
-    public double relevance;
 
     public Relevance(double RELEVANCE, String goal){
         this.relevance=RELEVANCE;
         this.goal=goal;
     }
     private String grammerly(){
-        String out=rel[(int)(this.relevance*8)-1];
-        if(out.lastIndexOf("to")==0){// ending with "to"
-            out+=this.goal+".";
+        String out=rel[scaleToStr()];
+        if(out.substring(out.lastIndexOf(" ")+1).equals("to")){// ending with "to"
+            out+=" "+this.goal+".";
         }
         else{
             int indexAddING=(this.goal.indexOf("be")==0 ? 2 : 4);
-            out+=this.goal.substring(0,indexAddING)+"ing"+this.goal.substring(indexAddING)+".";
+            out+=" "+this.goal.substring(0,indexAddING)+"ing"+this.goal.substring(indexAddING)+".";
         }
         return out;
+    }
+
+    private int scaleToStr() {
+        int index = 0;
+        for(int i = 1; i <= 8; i++){
+            double x = i / (double)8;
+            if(x > this.relevance){
+                index = i - 1;
+                break;
+            }
+        }
+        return index;
     }
 
     public String getRelevance(){
@@ -52,8 +61,6 @@ public class Relevance {
         }else{
             level="very important";
         }
-
-
         return level;
     }*/
 }

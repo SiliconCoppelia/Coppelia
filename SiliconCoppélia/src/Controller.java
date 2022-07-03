@@ -5,13 +5,10 @@ import java.lang.*;
 
 public class Controller {
 
-    private static String[] ethics = {"smiles", "shows an angry face", "cheats"};
-    private static String[] affordance = {"acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
-
-    private static StringBuffer sent1 = new StringBuffer("You are ");               // Ethics and Affordances
-    private static StringBuffer sent2 = new StringBuffer("I find ");                // Relevance: What is important and what is not
-    private static StringBuffer sent3 = new StringBuffer("");                       // Valence: hope/fear a pos/neg outcome
-    private static StringBuffer sent4 = new StringBuffer("Therefore, ");            // Involvement and Distance
+    private static final String[] ethics = new String[] {"smiles", "shows an angry face", "cheats"};
+    private static final String[] affordance = new String[] {
+            "acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
+    private static final String[] goal = new String[] {"help you", "be your friend"};
 
     public static void main(String[] args){
 
@@ -25,14 +22,16 @@ public class Controller {
         */
         int ethicInd = getRandomNumber(0, ethics.length);
         int affInd = getRandomNumber(0, affordance.length);
-        System.out.println("Agency " + ethics[ethicInd]);
+        System.out.println("** Agency " + ethics[ethicInd] + " **");
 
         Ethics eth = new Ethics(ethicInd, Math.random());
+        Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
 
 
         // Step 4: sentence formulation
         System.out.println(eth.getObservation());
         System.out.println(eth.getAssessment());
+        System.out.println(ethRel.getRelevance());
 
         System.exit(0);
     }
