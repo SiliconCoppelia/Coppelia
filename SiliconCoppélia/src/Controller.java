@@ -1,5 +1,8 @@
 import dimensions.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.*;
 
 
@@ -11,6 +14,16 @@ public class Controller {
     private static final String[] goal = new String[] {"help you", "be your friend"};
 
     public static void main(String[] args){
+
+        try {
+            File output = new File("output.txt");
+            if (output.createNewFile()) {
+                System.out.println("File created: " + output.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("Fail to load or create file");
+            e.printStackTrace();
+        }
 
         System.out.println("Hi, I'm Coppélia.\n");
 
@@ -30,15 +43,27 @@ public class Controller {
 
 
         // Step 4: sentence formulation
-        System.out.println(eth.getObservation());
-        System.out.println(eth.getAssessment());
-        System.out.println(ethRel.getRelevance());
-        System.out.println(ethVal.getValence());
+        storeOutput(eth.getObservation());
+        storeOutput(eth.getAssessment());
+        storeOutput(ethRel.getRelevance());
+        storeOutput(ethVal.getValence());
 
         System.exit(0);
     }
 
     private static int getRandomNumber(int min, int max) {
         return (int)((Math.random() * (max - min)) + min);
+    }
+
+    private static final void storeOutput(String str){
+        try {
+            FileWriter myWriter = new FileWriter("output.txt");
+            myWriter.write(str);
+            System.out.println(str);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Fail to write to file");
+            e.printStackTrace();
+        }
     }
 }
