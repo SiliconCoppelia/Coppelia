@@ -29,7 +29,7 @@ public class Controller {
         */
         int ethicInd = getRandomNumber(0, ethics.length);
         int affInd = getRandomNumber(0, affordance.length);
-        System.out.println("** Agency " + ethics[ethicInd] + " **");
+        Responses.add("** Agency " + ethics[ethicInd] + " **");
 
         Ethics eth = new Ethics(ethicInd, Math.random());
         Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
