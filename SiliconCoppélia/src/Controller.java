@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.*;
+import java.util.*;
 
 
 public class Controller {
@@ -12,18 +13,11 @@ public class Controller {
     private static final String[] affordance = new String[] {
             "acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
     private static final String[] goal = new String[] {"help you", "be your friend"};
+    private static final List<String> Responses = new ArrayList<String>();
 
     public static void main(String[] args){
 
-        try {
-            File output = new File("output.txt");
-            if (output.createNewFile()) {
-                System.out.println("File created: " + output.getName());
-            }
-        } catch (IOException e) {
-            System.out.println("Fail to load or create file");
-            e.printStackTrace();
-        }
+        File output = new File("output.txt");
 
         System.out.println("Hi, I'm Coppélia.\n");
 
@@ -41,12 +35,12 @@ public class Controller {
         Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
         Valence ethVal = new Valence(Math.random());
 
+        Responses.add(eth.getObservation());    // Ethics Observation
+        Responses.add(eth.getAssessment());     // Ethics Assessment
+        Responses.add(ethRel.getRelevance());   // Determine the Relevance
+        Responses.add(ethVal.getValence());     // Determine the Valence
 
-        // Step 4: sentence formulation
-        storeOutput(eth.getObservation());
-        storeOutput(eth.getAssessment());
-        storeOutput(ethRel.getRelevance());
-        storeOutput(ethVal.getValence());
+        storeOutput(output, Responses);
 
         System.exit(0);
     }
@@ -55,12 +49,16 @@ public class Controller {
         return (int)((Math.random() * (max - min)) + min);
     }
 
-    private static final void storeOutput(String str){
+    private static void storeOutput(File file, List<String> str){
+        // Reference: https://www.journaldev.com/881/java-append-to-file
         try {
-            FileWriter myWriter = new FileWriter("output.txt");
-            myWriter.write(str);
-            System.out.println(str);
-            myWriter.close();
+            FileWriter write = new FileWriter(file, true);
+            for(int i = 0; i < str.size(); i++){
+                write.write(str.get(i) + "\n");
+                System.out.println(str.get(i));
+            }
+            write.write("\n");
+            write.close();
         } catch (IOException e) {
             System.out.println("Fail to write to file");
             e.printStackTrace();
