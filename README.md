@@ -17,6 +17,8 @@ The project is still in its development phase. Source code and README files will
 - [x] Main, Affordance, and UseIntension Matrix: Tommy
 - [x] Involvement and Distance Matrix: Yooki
 - [x] Relevance and Valance: Anthony
+- Version 4:  
+- [ ] Move back from simple NLP, focus on simple structures
 
 # Authors
 - [CHEN Yi pu](https://github.com/BanjiBear)
