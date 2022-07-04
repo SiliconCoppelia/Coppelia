@@ -59,7 +59,7 @@ public class Valence{
     }
 
     public String getValence() {
-        return grammerly();
+        return "("+this.valence+") "+grammerly();
     }
 
 }

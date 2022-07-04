@@ -47,7 +47,7 @@ public class Relevance {
     }
 
     public String getRelevance(){
-        return this.grammerly();
+        return "("+this.relevance+") "+this.grammerly();
     }
 
     /*

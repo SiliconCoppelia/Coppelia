@@ -44,35 +44,35 @@ public class Ethics{
             if(scaleN > 0.66){
                 int i = getRandomNumber(4, 10);
                 if(i > 6){
-                    return assessment.append(getScale()).append(asses[i]).toString();
+                    return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[i]).toString();
                 }
                 else{
-                    return assessment.append(asses[i]).toString();
+                    return "("+this.scaleN+") "+assessment.append(asses[i]).toString();
                 }
             }
             else if(scaleN <= 0.66 && scaleN > 0.33){
-                return assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString();
+                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString();
             }
             else{
                 int i = getRandomNumber(7, 15);
                 if(i == 14){
-                    return asses[i];
+                    return "("+this.scaleN+") "+asses[i];
                 }
                 else{
-                    return assessment.append(getScale()).append(asses[i]).toString();
+                    return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[i]).toString();
                 }
             }
         }
         else if(index == 1 || index == 2){
             StringBuffer assessment = new StringBuffer("You do not seem to be ");
             if(scaleN > 0.66){
-                return assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString();
+                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString();
             }
             else if(scaleN <= 0.66 && scaleN > 0.33){
-                return assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString();
+                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString();
             }
             else{
-                return asses[getRandomNumber(15, 21)];
+                return "("+this.scaleN+") "+asses[getRandomNumber(15, 21)];
             }
         }
         return "I cannot seem to asses my observations";
