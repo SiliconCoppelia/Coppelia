@@ -31,10 +31,12 @@ public class Controller {
         int affInd = getRandomNumber(0, affordance.length);
         Responses.add("** Agency " + ethics[ethicInd] + " **");
 
+
         Ethics eth = new Ethics(ethicInd, Math.random());
         Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
         Valence ethVal = new Valence(Math.random());
 
+        Responses.add("** Coppélia wishes to " + ethRel.getGoal() + " **");     // Make goal explicit
         Responses.add(eth.getObservation());    // Ethics Observation
         Responses.add(eth.getAssessment());     // Ethics Assessment
         Responses.add(ethRel.getRelevance());   // Determine the Relevance

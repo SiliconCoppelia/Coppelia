@@ -46,3 +46,45 @@ I see a very friendly face
 (0.969098470852016) This is critical to my concern to help you.
 (0.23818481608299624) That makes me fear I cannot help you 
 
+** Agency shows an angry face **
+** Coppélia wishes to help you **
+You seem to be somewhat angry
+(0.040830441877519386) You seem to have a mean streak
+(0.21767704367688567) That is beside the point of helping you.
+(0.8229699648056853) I am looking forward to what will come from this.
+
+** Agency smiles **
+** Coppélia wishes to help you **
+I found you with a very friendly face
+(0.8838972632253076) It seems you are too good a person
+(0.5075034397247791) I think it’s relevant for helping you.
+(0.7309369034040295) That gives me good hope that I can help you 
+
+** Agency smiles **
+** Coppélia wishes to help you **
+You seem to have a friendly face
+(0.4209047600715864) It seems you are a good person
+(0.27052979685466194) That has little to do with helping you.
+(0.45012994012709795) So maybe things won’t go too well
+
+** Agency shows an angry face **
+** Coppélia wishes to help you **
+I think you are very angry
+(0.9821373082739174) You do not seem to be very kind
+(0.09213112363553344) This is totally trivial with respect to my concern to help you.
+(0.7747398654722337) I am looking forward to what will come from this.
+
+** Agency smiles **
+** Coppélia wishes to help you **
+I found you with a friendly face
+(0.6234723584291846) It seems you are gentle
+(0.32610639346353887) That has little to do with helping you.
+(0.037204678894869114) Due to that, helping you being friends will lead to nothing but trouble 
+
+** Agency shows an angry face **
+** Coppélia wishes to be your friend **
+You seem to be very angry
+(0.7002434950716399) You do not seem to be very kind
+(0.24319210327523588) That is beside the point of being your friend.
+(0.6133784159803315) I expect we will be fine
+

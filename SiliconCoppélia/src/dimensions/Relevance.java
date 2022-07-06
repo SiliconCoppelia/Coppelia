@@ -50,6 +50,10 @@ public class Relevance {
         return "("+this.relevance+") "+this.grammerly();
     }
 
+    public String getGoal(){
+        return this.goal;
+    }
+
     /*
     public String getLevel(){
         if(relevance<=0.25){
