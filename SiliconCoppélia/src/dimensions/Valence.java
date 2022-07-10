@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Valence{
 
     //add 2022/6/27
-    private double valence;
+    public double valence;
 
     public Valence(double valence){
         this.valence=valence;

@@ -13,7 +13,10 @@ public class Controller {
     private static final String[] affordance = new String[] {
             "acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
     private static final String[] goal = new String[] {"help you", "be your friend"};
+    private static final String[] causalPhrases = new String[] {"So, ", "Therefore, ", "This is why, ",
+            "For that reason, ", "Which means that ", "In all, ", "On the whole, "};
     private static final List<String> Responses = new ArrayList<String>();
+    private static StringBuffer response = new StringBuffer("");
 
     public static void main(String[] args){
 
@@ -43,6 +46,7 @@ public class Controller {
         Responses.add(ethVal.getValence());     // Determine the Valence
 
         storeOutput(output, Responses);
+        //sentenceFormulation();
 
         System.exit(0);
     }
@@ -65,5 +69,15 @@ public class Controller {
             System.out.println("Fail to write to file");
             e.printStackTrace();
         }
+    }
+
+    private static void sentenceFormulation(){
+        response.append(Responses.get(0)).append("\n");      // Append Agency Features
+        response.append(Responses.get(1)).append("\n");      // Append Coppélia goal
+        response.append(Responses.get(2)).append("\n");      // Append Ethics Observation
+
+        if(){
+        }
+        response.append(Responses.get(3)).append("\n");      // Append Ethics Assessment
     }
 }

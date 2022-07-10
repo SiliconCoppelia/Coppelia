@@ -88,3 +88,10 @@ You seem to be very angry
 (0.24319210327523588) That is beside the point of being your friend.
 (0.6133784159803315) I expect we will be fine
 
+** Agency cheats **
+** Coppélia wishes to help you **
+I think you are cheating
+(0.47398274850236866) You do not seem to be in a good mood
+(0.5264518825252478) I think it’s relevant for helping you.
+(0.5788224035933239) So I take it we will be Okay
+

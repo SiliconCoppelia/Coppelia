@@ -4,7 +4,7 @@ package dimensions;
 
 public class Relevance {
 
-    private double relevance;
+    public double relevance;
     private String goal;//"help you" or "be your friend"
     private final String[] rel=new String[]{
             "This is totally trivial with respect to my concern to",
