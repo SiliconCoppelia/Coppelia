@@ -3,7 +3,7 @@ package dimensions;
 
 public class Ethics{
     private final double index;
-    public final double scaleN;
+    public final double ethics;
     private final String[] scale = new String[] {"somewhat ", "very "};
     private final String[] features = new String[] {"friendly face", "angry", "cheating"};
     private final String[] observe = new String[] {"I see a ", "You seem to have a ", "I found you with a ", "You seem to be ", "You look ", "I think you are ", "I found you ", "You are "};
@@ -17,9 +17,9 @@ public class Ethics{
             "It seems you have a bad temper", "I don’t like your attitude", "Your behavior is unacceptable", "You seem to have a mean streak",
             "You are a bad person", "You are evil"};
 
-    public Ethics(int index, double scaleN){
+    public Ethics(int index, double ethics){
         this.index = index;
-        this.scaleN = scaleN;
+        this.ethics = ethics;
     }
 
 
@@ -41,38 +41,38 @@ public class Ethics{
     public String getAssessment(){
         if(index == 0){
             StringBuffer assessment = new StringBuffer(asses[getRandomNumber(0, 4)]);
-            if(scaleN > 0.66){
+            if(ethics > 0.66){
                 int i = getRandomNumber(4, 10);
                 if(i > 6){
-                    return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[i]).toString();
+                    return "("+this.ethics+") "+assessment.append(getScale()).append(asses[i]).toString();
                 }
                 else{
-                    return "("+this.scaleN+") "+assessment.append(asses[i]).toString();
+                    return "("+this.ethics+") "+assessment.append(asses[i]).toString();
                 }
             }
-            else if(scaleN <= 0.66 && scaleN > 0.33){
-                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString();
+            else if(ethics <= 0.66 && ethics > 0.33){
+                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString();
             }
             else{
                 int i = getRandomNumber(7, 15);
                 if(i == 14){
-                    return "("+this.scaleN+") "+asses[i];
+                    return "("+this.ethics+") "+asses[i];
                 }
                 else{
-                    return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[i]).toString();
+                    return "("+this.ethics+") "+assessment.append(getScale()).append(asses[i]).toString();
                 }
             }
         }
         else if(index == 1 || index == 2){
             StringBuffer assessment = new StringBuffer("You do not seem to be ");
-            if(scaleN > 0.66){
-                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString();
+            if(ethics > 0.66){
+                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString();
             }
-            else if(scaleN <= 0.66 && scaleN > 0.33){
-                return "("+this.scaleN+") "+assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString();
+            else if(ethics <= 0.66 && ethics > 0.33){
+                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString();
             }
             else{
-                return "("+this.scaleN+") "+asses[getRandomNumber(15, 21)];
+                return "("+this.ethics+") "+asses[getRandomNumber(15, 21)];
             }
         }
         return "I cannot seem to asses my observations";
@@ -80,10 +80,10 @@ public class Ethics{
 
     private String getScale(){
         String str = "";
-        if(scaleN <= 0.33){
+        if(ethics <= 0.33){
             str = scale[0];
         }
-        else if(scaleN > 0.66){
+        else if(ethics > 0.66){
             str = scale[1];
         }
         return str;

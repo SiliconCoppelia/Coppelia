@@ -16,10 +16,14 @@ public class Controller {
     private static final String[] goal = new String[] {"help you", "be your friend"};
     private static final String[] causalPhrases = new String[] {"So, ", "Therefore, ", "This is why, ",
             "For that reason, ", "Which means that ", "In all, ", "On the whole, "};
+    private static final String[] transitions = new String[] {"Even though ", "Though ", "Although ",
+            "Despite the fact that ", "Admittedly, "};
+
 
     // Required Integers
     private static final int ethicInd = getRandomNumber(0, ethics.length);
     private static final int affInd = getRandomNumber(0, affordance.length);
+    private static final int transitionsInd = getRandomNumber(0, transitions.length);
 
     // Objects
     private static final Ethics eth = new Ethics(ethicInd, Math.random());
@@ -50,8 +54,8 @@ public class Controller {
         Responses.add(ethRel.getRelevance());   // Determine the Relevance
         Responses.add(ethVal.getValence());     // Determine the Valence
 
-        storeOutput(output, Responses);
-        //sentenceFormulation();
+        //storeOutput(output, Responses);
+        sentenceFormulation();
 
         System.exit(0);
     }
@@ -64,9 +68,9 @@ public class Controller {
         // Reference: https://www.journaldev.com/881/java-append-to-file
         try {
             FileWriter write = new FileWriter(file, true);
-            for(int i = 0; i < str.size(); i++){
-                write.write(str.get(i) + "\n");
-                System.out.println(str.get(i));
+            for (String s : str) {
+                write.write(s + "\n");
+                System.out.println(s);
             }
             write.write("\n");
             write.close();
@@ -81,8 +85,15 @@ public class Controller {
         response.append(Responses.get(1)).append("\n");      // Append Coppélia goal
         response.append(Responses.get(2)).append("\n");      // Append Ethics Observation
 
-        if(){
+        if(eth.ethics > 0.5 && ethRel.relevance < 0.5){
+            response.append(transitions[transitionsInd]).append(Responses.get(3)).append("\n");
+            if(transitionsInd == 4){
+                response.append("but ").append(Responses.get(4)).append("\n");
+            }
+            else{
+                response.append(Responses.get(4)).append("\n");
+            }
         }
-        response.append(Responses.get(3)).append("\n");      // Append Ethics Assessment
+        System.out.println(response.toString());
     }
 }
