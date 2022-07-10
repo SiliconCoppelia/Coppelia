@@ -9,12 +9,24 @@ import java.util.*;
 
 public class Controller {
 
+    // All Strings
     private static final String[] ethics = new String[] {"smiles", "shows an angry face", "cheats"};
     private static final String[] affordance = new String[] {
             "acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
     private static final String[] goal = new String[] {"help you", "be your friend"};
     private static final String[] causalPhrases = new String[] {"So, ", "Therefore, ", "This is why, ",
             "For that reason, ", "Which means that ", "In all, ", "On the whole, "};
+
+    // Required Integers
+    private static final int ethicInd = getRandomNumber(0, ethics.length);
+    private static final int affInd = getRandomNumber(0, affordance.length);
+
+    // Objects
+    private static final Ethics eth = new Ethics(ethicInd, Math.random());
+    private static final Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
+    private static final Valence ethVal = new Valence(Math.random());
+
+    // Responses and final Sentence Construction
     private static final List<String> Responses = new ArrayList<String>();
     private static StringBuffer response = new StringBuffer("");
 
@@ -30,15 +42,8 @@ public class Controller {
             Java Random int -> Greater or equal to 0 and Less than 1
             The max should not be length - 1, or it will never reach the largest
         */
-        int ethicInd = getRandomNumber(0, ethics.length);
-        int affInd = getRandomNumber(0, affordance.length);
+
         Responses.add("** Agency " + ethics[ethicInd] + " **");
-
-
-        Ethics eth = new Ethics(ethicInd, Math.random());
-        Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
-        Valence ethVal = new Valence(Math.random());
-
         Responses.add("** Coppélia wishes to " + ethRel.getGoal() + " **");     // Make goal explicit
         Responses.add(eth.getObservation());    // Ethics Observation
         Responses.add(eth.getAssessment());     // Ethics Assessment
