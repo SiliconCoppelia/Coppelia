@@ -23,6 +23,7 @@ public class Controller {
     // Required Integers
     private static final int ethicInd = getRandomNumber(0, ethics.length);
     private static final int affInd = getRandomNumber(0, affordance.length);
+    private static final int causalPhrInd = getRandomNumber(0, causalPhrases.length);
     private static final int transitionsInd = getRandomNumber(0, transitions.length);
 
     // Objects
@@ -85,7 +86,10 @@ public class Controller {
         response.append(Responses.get(1)).append("\n");      // Append Coppélia goal
         response.append(Responses.get(2)).append("\n");      // Append Ethics Observation
 
-        if(eth.ethics > 0.5 && ethRel.relevance < 0.5){
+        if(eth.ethics > 0.5 && ethRel.relevance > 0.5){
+            response.append(Responses.get(3)).append("\n").append(causalPhrases[causalPhrInd]).append(Responses.get(4)).append("\n");
+        }
+        else if(eth.ethics > 0.5 && ethRel.relevance < 0.5){
             response.append(transitions[transitionsInd]).append(Responses.get(3)).append("\n");
             if(transitionsInd == 4){
                 response.append("but ").append(Responses.get(4)).append("\n");
