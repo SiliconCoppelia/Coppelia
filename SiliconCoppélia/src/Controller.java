@@ -123,6 +123,9 @@ public class Controller {
         //Valence: The current setting assumes Coppélia prefers a kind personality
         response.append(Responses.get(5));
 
+        //Add Similarity
+        response.append(Responses.get(6));
+
         System.out.println(response.toString());
     }
 }
