@@ -98,6 +98,12 @@ public class Controller {
                 response.append(Responses.get(4)).append("\n");
             }
         }
+        else if(eth.ethics < 0.5 && ethRel.relevance < 0.5){
+            response.append(Responses.get(3)).append("\n").append("but ").append(Responses.get(4)).append("\n");
+        }
+        else{
+            response.append(Responses.get(3)).append("\n").append(Responses.get(4)).append("\n");
+        }
         System.out.println(response.toString());
     }
 }
