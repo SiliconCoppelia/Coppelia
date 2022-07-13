@@ -22,18 +22,19 @@ public class Controller {
 
     // Required Integers
     private static final int ethicInd = getRandomNumber(0, ethics.length);
+    private static final int preference = 0;    //0 for kind person; 1 for bad personality; and 3 for evil ppl
     private static final int affInd = getRandomNumber(0, affordance.length);
     private static final int causalPhrInd = getRandomNumber(0, causalPhrases.length);
     private static final int transitionsInd = getRandomNumber(0, transitions.length);
 
     // Objects
     private static final Ethics eth = new Ethics(ethicInd, Math.random());
-    private static final Relevance ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
-    private static final Valence ethVal = new Valence(Math.random());
+    private static Relevance ethRel;
+    private static Valence ethVal;
 
     // Responses and final Sentence Construction
     private static final List<String> Responses = new ArrayList<String>();
-    private static StringBuffer response = new StringBuffer("");
+    private static final StringBuffer response = new StringBuffer("");
 
     public static void main(String[] args){
 
@@ -41,12 +42,20 @@ public class Controller {
 
         System.out.println("Hi, I'm Coppélia.\n");
 
-        /*
-            https://www.freecodecamp.org/news/generate-random-numbers-java/
-            https://www.baeldung.com/java-generating-random-numbers-in-range
-            Java Random int -> Greater or equal to 0 and Less than 1
-            The max should not be length - 1, or it will never reach the largest
-        */
+        //Determine Ethics Relevance and Valence
+        if(ethicInd == preference){
+            ethRel = new Relevance(0.1 * getRandomNumber(5, 10), goal[getRandomNumber(0, 2)]);
+            ethVal = new Valence(0.1 * getRandomNumber(5, 10));
+        }
+        else{
+            ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
+            if(ethRel.relevance > 0.5){
+                ethVal = new Valence(0.1 * getRandomNumber(0, 5));
+            }
+            else{
+                ethVal = new Valence(0.1 * getRandomNumber(5, 10));
+            }
+        }
 
         Responses.add("** Agency " + ethics[ethicInd] + " **");
         Responses.add("** Coppélia wishes to " + ethRel.getGoal() + " **");     // Make goal explicit
@@ -62,6 +71,12 @@ public class Controller {
     }
 
     private static int getRandomNumber(int min, int max) {
+        /*
+            https://www.freecodecamp.org/news/generate-random-numbers-java/
+            https://www.baeldung.com/java-generating-random-numbers-in-range
+            Java Random int -> Greater or equal to 0 and Less than 1
+            The max should not be length - 1, or it will never reach the largest
+        */
         return (int)((Math.random() * (max - min)) + min);
     }
 
@@ -104,6 +119,10 @@ public class Controller {
         else{
             response.append(Responses.get(3)).append("\n").append(Responses.get(4)).append("\n");
         }
+
+        //Valence: The current setting assumes Coppélia prefers a kind personality
+        response.append(Responses.get(5));
+
         System.out.println(response.toString());
     }
 }
