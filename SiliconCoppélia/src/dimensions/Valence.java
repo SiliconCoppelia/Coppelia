@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class Valence{
     private final double index;
-    public final double valence;
+    
     private final String[] positiveVerbStr={"expect","have the feeling","am looking forward to"};
     private final String[] negativeVerbStr={"am afraid","have little expectations","am looking forward to"};
 
@@ -20,6 +20,7 @@ public class Valence{
         this.index = index;
         this.valence = ethics;
     }
+    public String str="";
 
 /*
     public String getObservation(){
