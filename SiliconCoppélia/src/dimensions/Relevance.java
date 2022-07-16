@@ -1,70 +1,164 @@
 package dimensions;
-
+import generateRelated.*;
+/**
+ * @Author Yooki ZHANG
+ * @Date 15/7/2022
+ * @Description:
+ */
 //import java.util.Scanner;
 
 public class Relevance {
 
     public double relevance;
-    private String goal;//"help you" or "be your friend"
-    private final String[] rel=new String[]{
-            "This is totally trivial with respect to my concern to",
-            "That is beside the point of",
-            "That has little to do with",
-            "I think it’s irrelevant for",
+    private int goalIndex;
+    private String relStr;
+    private String preposition="to";
+    public String str;//the final out string
+    public String[] personVerbStr={"think","find"};
+    public String[] relevanceStr={"irrelevant","has little to do","trivial with respect to my concern","beside the point of","relevant","important","essential","critical"};
 
-            "I think it’s relevant for",
-            "I find that quite important so to",
-            "That is essential for",
-            "This is critical to my concern to"
+    public String[][][] goalStr={
+            {//goalIndex=1
+                    {"be friends", "being friends"},
+                    {"be your friend", "being your friend"},
+                    {"be friends with you", "being friends with you"},
+                    {"become friend", "becoming friend"},
+                    {"become your friend", "becoming your friend"},
+                    {"become friend with you", "becoming friend with you"}
+            },
+
+            {//goal=2
+                    {"help you", "helping you"}
+            }
     };
 
-    public Relevance(double RELEVANCE, String goal){
+    public String[] degreeStr={"quite", "rather", "tremendously", "very", "totally", "enormously"};
+    public String[] modalParticle={"trust me", "believe me", "really"};
+
+    public Relevance(double RELEVANCE, int goal){//1 for help, 2 for make friends
         this.relevance=RELEVANCE;
-        this.goal=goal;
-    }
-    private String grammerly(){
-        String out=rel[scaleToStr()];
-        if(out.substring(out.lastIndexOf(" ")+1).equals("to")){// ending with "to"
-            out+=" "+this.goal+".";
-        }
-        else{
-            int indexAddING=(this.goal.indexOf("be")==0 ? 2 : 4);
-            out+=" "+this.goal.substring(0,indexAddING)+"ing"+this.goal.substring(indexAddING)+".";
-        }
-        return out;
+        this.goalIndex=goal;
+        this.relStr=chooseRelevance();
+        this.generate();
     }
 
-    private int scaleToStr() {
-        int index = 0;
-        for(int i = 1; i <= 8; i++){
-            double x = i / (double)8;
-            if(x > this.relevance){
-                index = i - 1;
-                break;
+    public String chooseRelevance(){
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+        SentenceComponents sentenceComponents=new SentenceComponents();
+        String finalRel;
+        if(this.relevance<0.5){
+            if(this.relevance<0.125){
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(4,5)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
+            }
+            else if(this.relevance<0.25){
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(2,3)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
+            }
+            else if(this.relevance<0.375){
+                finalRel=relevanceStr[genarateSentenceTool.randomInt(0,3)];
+            }
+            else{
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,1)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
             }
         }
-        return index;
+        else{
+            if(this.relevance<0.625){
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,1)],relevanceStr[genarateSentenceTool.randomInt(4,7)]);
+            }
+            else if(this.relevance<0.75){
+                finalRel=relevanceStr[genarateSentenceTool.randomInt(4,7)];
+            }
+            else if(this.relevance<0.875){
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(2,3)],relevanceStr[genarateSentenceTool.randomInt(4,7)]);
+            }
+            else{
+                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(4,5)],relevanceStr[genarateSentenceTool.randomInt(4,7)]);
+            }
+        }
+        return finalRel;
+    }
+
+    public String chooseGoal(){
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+        if(this.goalIndex==1){
+            if(this.relStr.indexOf("has little to do")>0){
+                this.preposition="with";
+                return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
+            }
+            else if(this.relStr.indexOf("relevant")>0){
+                this.preposition="for";
+                return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
+            }
+            else{
+                this.preposition="to";
+                return goalStr[0][genarateSentenceTool.randomInt(0,5)][0];
+            }
+        }
+
+        else{
+            if(this.relStr.contains("has little to do")){
+                this.preposition="with";
+                return goalStr[0][0][1];
+            }
+            else if(this.relStr.contains("relevant")){
+                this.preposition="for";
+                return goalStr[0][0][1];
+            }
+            else{
+                this.preposition="to";
+                return goalStr[0][0][0];
+            }
+        }
+    }
+
+    public void generate(){
+        SentenceComponents sentenceComponents=new SentenceComponents();
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+
+
+        //choose it/this/that
+        int random = genarateSentenceTool.randomInt(1,3);
+        Pronouns pronouns= Pronouns.THIS;
+        switch (random){
+            case 1:
+                pronouns= Pronouns.THIRD_PERSON_O;
+            case 2:
+                pronouns= Pronouns.THIS;
+            case 3:
+                pronouns= Pronouns.THAT;
+            default:
+                pronouns= Pronouns.THIRD_PERSON_O;
+        }
+
+
+        //generate the most basic sentence
+        this.str=sentenceComponents.itBeAdj(pronouns, this.relStr, this.preposition, this.chooseGoal());
+
+
+        // choose basic(It is ...) / complex sentence(I think it...)
+        if(genarateSentenceTool.randomInt(0, 1)==1){
+            this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON, personVerbStr[genarateSentenceTool.randomInt(0,1)], this.str);
+        }
+
+        //choose if add the modal particle
+        int add=genarateSentenceTool.randomInt(0,1);
+        if(add==1){
+            this.str=genarateSentenceTool.addPunctuation(1,this.str);
+            this.str+=" "+modalParticle[genarateSentenceTool.randomInt(0, 2)];
+            //upwriting the first letter
+            this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+            this.str=genarateSentenceTool.addPunctuation(4,this.str);
+        }
+        else{
+            //upwriting the first letter
+            this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+            this.str=genarateSentenceTool.addPunctuation(2,this.str);
+        }
+
+
     }
 
     public String getRelevance(){
-        return "("+this.relevance+") "+this.grammerly();
+        return this.str;
     }
 
-    public String getGoal(){
-        return this.goal;
-    }
-
-    /*
-    public String getLevel(){
-        if(relevance<=0.25){
-            level="very unimportant";
-        }else if(relevance<=0.5){
-            level="somewhat unimportant";
-        }else if(relevance<=0.75){
-            level="somewhat important";
-        }else{
-            level="very important";
-        }
-        return level;
-    }*/
 }
