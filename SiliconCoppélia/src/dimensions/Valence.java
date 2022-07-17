@@ -70,6 +70,8 @@ public class Valence{
 
         if(this.valence<0.5){
             //generate the most basic sentence
+            this.str=sentenceComponents.concatTheSentence(reasonStr[genarateSentenceTool.randomInt(0,4)]);
+            this.str=genarateSentenceTool.addPunctuation(1,this.str);
             String personVerb=personVerbStr[genarateSentenceTool.randomInt(0,4)];
             String objective;
             if(personVerb.indexOf("expectation")>=0){
@@ -78,38 +80,45 @@ public class Valence{
             else{
                 objective=objectiveStr[genarateSentenceTool.randomInt(0,3)];
             }
-            this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON,personVerb,objective);
+            this.str=sentenceComponents.concatTheSentence(this.str,sentenceComponents.SVO(Pronouns.FIRST_PERSON,personVerb,objective));
             //adding the degree
             if(this.valence<0.25){
                 this.str=sentenceComponents.concatTheSentence(this.str,degreeStr[genarateSentenceTool.randomInt(0,3)]);
             }
 
-            sentenceComponents.concatTheSentence(genarateSentenceTool.addPunctuation(1,reasonStr[genarateSentenceTool.randomInt(0,4)]),this.str);
-
         }
         else{
             //generate the most basic sentence
+            if(genarateSentenceTool.randomInt(0,1)==1){
+                this.str=sentenceComponents.concatTheSentence("so");
+                this.str=genarateSentenceTool.addPunctuation(1,this.str);
+            }
             String personVerb=personVerbStr[genarateSentenceTool.randomInt(5,9)];
             String objective;
             if(personVerb.indexOf("expect")>=0){
                 objective=objectiveStr[genarateSentenceTool.randomInt(4,5)];
             }
+            else if(personVerb.indexOf("take it")>=0){
+                objective=objectiveStr[genarateSentenceTool.randomInt(8,9)];
+            }
             else{
                 objective=objectiveStr[genarateSentenceTool.randomInt(6,9)];
             }
-            this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON,personVerb,objective);
+            if(this.str==null){
+                this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON,personVerb,objective);
+            }
+            else{
+                this.str=sentenceComponents.concatTheSentence(this.str,sentenceComponents.SVO(Pronouns.FIRST_PERSON,personVerb,objective));
+            }
+
             //adding the degree
             if(this.valence>0.75){
-                this.str=sentenceComponents.concatTheSentence(this.str,degreeStr[genarateSentenceTool.randomInt(0,3)]);
+                this.str=sentenceComponents.concatTheSentence(this.str,degreeStr[genarateSentenceTool.randomInt(1,3)]);
             }
 
-            if(genarateSentenceTool.randomInt(0,1)==1){
-                sentenceComponents.concatTheSentence(genarateSentenceTool.addPunctuation(1,"so"),this.str);
-            }
-
-            this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
-            this.str=genarateSentenceTool.addPunctuation(2,this.str);
         }
+        this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+        this.str=genarateSentenceTool.addPunctuation(2,this.str);
 
     }
 
