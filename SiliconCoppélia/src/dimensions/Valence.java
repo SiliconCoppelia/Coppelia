@@ -74,7 +74,7 @@ public class Valence{
             this.str=genarateSentenceTool.addPunctuation(1,this.str);
             String personVerb=personVerbStr[genarateSentenceTool.randomInt(0,4)];
             String objective;
-            if(personVerb.indexOf("expectation")>=0){
+            if(personVerb.contains("expectation")){
                 objective=objectiveStr[genarateSentenceTool.randomInt(4,5)];
             }
             else{
@@ -95,10 +95,10 @@ public class Valence{
             }
             String personVerb=personVerbStr[genarateSentenceTool.randomInt(5,9)];
             String objective;
-            if(personVerb.indexOf("expect")>=0){
+            if(personVerb.contains("expect")){
                 objective=objectiveStr[genarateSentenceTool.randomInt(4,5)];
             }
-            else if(personVerb.indexOf("take it")>=0){
+            else if(personVerb.contains("take it")){
                 objective=objectiveStr[genarateSentenceTool.randomInt(8,9)];
             }
             else{

@@ -1,56 +1,255 @@
 package dimensions;
 
+import generateRelated.*;
+/**
+ * @Author Yooki ZHANG
+ * @Date 17/7/2022
+ * @Description:
+ */
+
 public class Satisfaction {
 
-    private String[] SatisfactionStr={
-            "No. You’re a total failure / I think you are a loser",
-            "I must say, I am pretty displeased about you / You are a big disappointment / I really dislike you",
-            "Actually, I feel quite dissatisfied with you / Your performance is weak",
-            "All of this is quite mediocre don’t you think?",
-            "I think you’re doing so-so",
-            "I believe you could do better / I believe you can be better than this",
+    private double satisfaction;
+    public String str;
+    public String valStr;
 
-            "You’re not half bad",
-            "You’re doing fine I guess",
-            "I think you are Okay / I quite like you",
-            "I truly appreciate you / I really like you / I thank you so much!",
-            "I am so happy with you / You make me happy!",
-            "I am totally satisfied with you / You are awesome! / You are absolutely great!"
+    public String[] objectiveStr={
+            //adding degreeStr
+            "you're a failure",
+            "you are a loser",
+            "you a big disappointment",
+            "your performance is weak",
+
+            "you're doing so so",
+            "it is mediocre",
+
+            //adding "than this"
+            "you could do better",
+            "you can be better",
+
+
+            "not half bad",
+            "doing fine",
+            "OK",
+
+            "making me happy",
+            "great",
+            "awesome"
     };
-    private int index;
-    private double num;
+
+    //the simple sentence that do not use the structure of "you are xxx"
+    public String[] simpleStr={
+            "feel quite dissatisfied with",
+            "am pretty displeased with",
+            "really dislike",
+
+            //adding levelStr
+            "like",
+            "appreciate",
+            "thank",
+            "satisfied with"
+    };
+
+    //public String[] valenceStr={};
+
+    public String[] emotionStr={"no","actually","I must say","great","perfect","excellent"};
+    public String[] personVerbStr={"think","believe","guess","know", "feel"};
+    //after objective sentence
+    public String[] degreeStr={"tremendously", "totally", "extremely", "enormously", "absolutely"};
+    //after subjective sentence "I truly/totally..."
+    public String[] levelStr={"truly","totally","quite","really"};
+
 
     public Satisfaction(double SATISFACTION){
-        this.num=SATISFACTION;
-        //this.goal=goal;
+        this.satisfaction=SATISFACTION;
+        this.generation();
     }
 
-    private String grammerly(){
-        String out=SatisfactionStr[(int)(this.num*12)-1];
-        if(out.contains("/")){
-            String[] sentences=new String[5];
-            sentences=out.split("/");
-            int count=0;
-            int index=0;
-            while((index=out.indexOf("/",index))!=-1){
-                index = index+1;
-                count++;
+    public void generation(){
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+        SentenceComponents sentenceComponents=new SentenceComponents();
+        if(this.satisfaction<0.5){
+
+            //adding emotionalStr
+            if(genarateSentenceTool.randomInt(0,1)==1){
+                this.str=genarateSentenceTool.addPunctuation(1,emotionStr[genarateSentenceTool.randomInt(0,2)]);
             }
-            int random=(int)(Math.random() * (count-1));
-            return sentences[random];
-        }
-        return out;
-    }
 
-    public String getSatisfaction() {
-        return grammerly();
+            //choose 3 sentenceStructure from 3 types
+            int random=genarateSentenceTool.randomInt(1,3);
 
-        /*if(this.num>0.5){
-            return useIntentionPositive[(int)((this.num-0.5)*2.5)];
+            //I xxx you
+            if(random==1){
+                if(this.str==null){
+                    this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON,simpleStr[genarateSentenceTool.randomInt(0,2)],Pronouns.SECOND_PERSON);
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,sentenceComponents.SVO(Pronouns.FIRST_PERSON,simpleStr[genarateSentenceTool.randomInt(0,2)],Pronouns.SECOND_PERSON));
+                }
+            }
+
+            //you are xxx
+            else if(random==2){
+                String basicSentence;
+                if(this.satisfaction<0.125){
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(0,3)]);
+
+                }
+                else if(this.satisfaction<0.25){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(0,3)];
+                }
+                else if(this.satisfaction<0.375){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(4,5)];
+                }
+                else{
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(6,7)];
+                    if(genarateSentenceTool.randomInt(0,1)==1){
+                        basicSentence=sentenceComponents.concatTheSentence(basicSentence,"than this");
+                    }
+                }
+                if(this.str==null){
+                    this.str=basicSentence;
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,basicSentence);
+                }
+            }
+
+            //I think you are xxx
+            else{
+
+                if(this.str==null){
+                    this.str=sentenceComponents.concatTheSentence(Pronouns.FIRST_PERSON.getSubjectStr(),personVerbStr[genarateSentenceTool.randomInt(0,4)]);
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,Pronouns.FIRST_PERSON.getSubjectStr(),personVerbStr[genarateSentenceTool.randomInt(0,4)]);
+                }
+
+                String basicSentence;
+                if(this.satisfaction<0.125){
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(0,3)]);
+
+                }
+                else if(this.satisfaction<0.25){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(0,3)];
+                }
+                else if(this.satisfaction<0.375){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(4,5)];
+                }
+                else{
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(6,7)];
+                    if(genarateSentenceTool.randomInt(0,1)==1){
+                        basicSentence=sentenceComponents.concatTheSentence(basicSentence,"than this");
+                    }
+                }
+                this.str=sentenceComponents.concatTheSentence(this.str, basicSentence);
+            }
         }
+
+        //>0.5
         else{
-            return useIntentionNegative[(int)(this.num*2.5)];
-        }*/
+            //adding emotionalStr
+            if(genarateSentenceTool.randomInt(0,1)==1){
+                this.str=genarateSentenceTool.addPunctuation(4,emotionStr[genarateSentenceTool.randomInt(3,5)]);
+            }
 
+            //choose 3 sentenceStructure from 3 types
+            int random=genarateSentenceTool.randomInt(1,3);
+
+            //I xxx you
+            if(random==1){
+                String simpleString;
+
+                //adding level string
+                if(this.satisfaction>0.75){
+                    simpleString= sentenceComponents.concatTheSentence(levelStr[genarateSentenceTool.randomInt(0,3)],simpleStr[genarateSentenceTool.randomInt(3,6)]);
+                }
+                else{
+                    simpleString=simpleStr[genarateSentenceTool.randomInt(3,6)];
+                }
+                if(this.str==null){
+                    this.str=sentenceComponents.SVO(Pronouns.FIRST_PERSON,simpleString,Pronouns.SECOND_PERSON);
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,genarateSentenceTool.upperWritingFirstLetter(sentenceComponents.SVO(Pronouns.FIRST_PERSON,simpleString,Pronouns.SECOND_PERSON)));
+                }
+
+            }
+
+            //you are xxx
+            else if(random==2){
+                String basicSentence;
+                if(this.satisfaction<0.625){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(8,10)];
+                }
+                else if(this.satisfaction<0.75){
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(8,10)]);
+                }
+                else if(this.satisfaction<0.875){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(11,13)];
+                }
+                else{
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(11,13)]);
+                }
+                if(this.str==null){
+                    this.str=sentenceComponents.SVP(Pronouns.SECOND_PERSON,basicSentence);
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,genarateSentenceTool.upperWritingFirstLetter(sentenceComponents.SVP(Pronouns.SECOND_PERSON,basicSentence)));
+                }
+            }
+
+            //I think you are xxx
+            else{
+
+                if(this.str==null){
+                    this.str=sentenceComponents.concatTheSentence(Pronouns.FIRST_PERSON.getSubjectStr(),personVerbStr[genarateSentenceTool.randomInt(0,4)]);
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,Pronouns.FIRST_PERSON.getSubjectStr(),personVerbStr[genarateSentenceTool.randomInt(0,4)]);
+                }
+
+                String basicSentence;
+                if(this.satisfaction<0.625){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(8,10)];
+                }
+                else if(this.satisfaction<0.75){
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(8,10)]);
+                }
+                else if(this.satisfaction<0.875){
+                    basicSentence=objectiveStr[genarateSentenceTool.randomInt(11,13)];
+                }
+                else{
+                    basicSentence=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,4)],objectiveStr[genarateSentenceTool.randomInt(11,13)]);
+                }
+
+                this.str=sentenceComponents.concatTheSentence(this.str, sentenceComponents.SVP(Pronouns.SECOND_PERSON,basicSentence));
+            }
+        }
+
+        this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+        this.str=genarateSentenceTool.addPunctuation(2,this.str);
+    }
+    /*
+        private String grammerly(){
+            String out=SatisfactionStr[(int)(this.num*12)-1];
+            if(out.contains("/")){
+                String[] sentences=new String[5];
+                sentences=out.split("/");
+                int count=0;
+                int index=0;
+                while((index=out.indexOf("/",index))!=-1){
+                    index = index+1;
+                    count++;
+                }
+                int random=(int)(Math.random() * (count-1));
+                return sentences[random];
+            }
+            return out;
+        }
+    */
+    public String getSatisfaction() {
+        return this.str;
     }
 }
+

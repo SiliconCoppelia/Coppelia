@@ -53,18 +53,37 @@ public class Relevance {
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
         String finalRel;
+        int random;
         if(this.relevance<0.5){
             if(this.relevance<0.125){
-                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(4,5)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
+                random=genarateSentenceTool.randomInt(0,3);
+                if(random==1){
+                    finalRel=relevanceStr[random];
+                }
+                else{
+                    finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(4,5)],relevanceStr[random]);
+                }
             }
             else if(this.relevance<0.25){
-                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(2,3)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
+                random=genarateSentenceTool.randomInt(0,3);
+                if(random==1){
+                    finalRel=relevanceStr[random];
+                }
+                else{
+                    finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(2,3)],relevanceStr[random]);
+                }
             }
             else if(this.relevance<0.375){
                 finalRel=relevanceStr[genarateSentenceTool.randomInt(0,3)];
             }
             else{
-                finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,1)],relevanceStr[genarateSentenceTool.randomInt(0,3)]);
+                random=genarateSentenceTool.randomInt(0,3);
+                if(random==1){
+                    finalRel=relevanceStr[random];
+                }
+                else{
+                    finalRel=sentenceComponents.concatTheSentence(degreeStr[genarateSentenceTool.randomInt(0,1)],relevanceStr[random]);
+                }
             }
         }
         else{
@@ -87,11 +106,11 @@ public class Relevance {
     public String chooseGoal(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         if(this.goalIndex==1){
-            if(this.relStr.indexOf("has little to do")>=0){
+            if(this.relStr.contains("has little to do")){
                 setPreposition("with");
                 return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
             }
-            else if(this.relStr.indexOf("relevant")>=0){
+            else if(this.relStr.contains("relevant")){
                 setPreposition("for");
                 return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
             }
@@ -102,11 +121,11 @@ public class Relevance {
         }
 
         else{
-            if(this.relStr.indexOf("has little to do")>=0){
+            if(this.relStr.contains("has little to do")){
                 setPreposition("with");
                 return goalStr[0][0][1];
             }
-            else if(this.relStr.indexOf("relevant")>=0){
+            else if(this.relStr.contains("relevant")){
                 setPreposition("for");
                 return goalStr[0][0][1];
             }
@@ -139,7 +158,12 @@ public class Relevance {
 
         String goal=this.chooseGoal();
         //generate the most basic sentence
-        this.str=sentenceComponents.itBeAdj(pronouns, this.relStr, getPreposition(), goal);
+        if(this.relStr.contains("has little to do")){
+            this.str=sentenceComponents.SVO(pronouns, sentenceComponents.concatTheSentence(this.relStr, getPreposition()), goal);
+        }
+        else{
+            this.str=sentenceComponents.itBeAdj(pronouns, this.relStr, getPreposition(), goal);
+        }
 
 
         // choose basic(It is ...) / complex sentence(I think it...)
@@ -168,5 +192,6 @@ public class Relevance {
     public String getRelevance(){
         return this.str;
     }
+
 
 }

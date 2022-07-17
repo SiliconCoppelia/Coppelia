@@ -49,17 +49,16 @@ public class SentenceComponents {
         String beStr;
         switch (pronouns.getIndex()){
             case 1:
-                beStr="am";
+                return concatTheSentence(pronouns.getSubjectStr(), "am", predicative);
             case 2:
-                beStr="are";
-            case 3:
-                beStr="is";
             case 4:
-                beStr="are";
+                return concatTheSentence(pronouns.getSubjectStr(), "are", predicative);
+            case 3:
+                return concatTheSentence(pronouns.getSubjectStr(), "is", predicative);
             default:
-                beStr="";
+                return "";
+
         }
-        return concatTheSentence(pronouns.getSubjectStr(), beStr, predicative);
     }
 
     //主 谓 宾
@@ -72,7 +71,7 @@ public class SentenceComponents {
 
     //主 谓 宾语从句
     public String SVO(Pronouns sub, String verbStr, String str){
-        if(sub.getPlus_S()){
+        if(sub.getPlus_S() && verbStr.indexOf("with")<0){
             verbStr=verbPlus_S(verbStr);
         }
         return concatTheSentence(sub.getSubjectStr(),verbStr,str);
