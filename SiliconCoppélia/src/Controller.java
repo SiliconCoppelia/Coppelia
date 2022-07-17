@@ -13,7 +13,7 @@ public class Controller {
     private static final String[] ethics = new String[] {"smiles", "shows an angry face", "cheats"};
     private static final String[] affordance = new String[] {
             "acts fast", "acts slow", "is accurate", "has high IQ score", "has low IQ score"};
-    private static final String[] goal = new String[] {"help you", "be your friend"};
+    //private static final String[] goal = new String[] {"help you", "be your friend"};
     private static final String[] causalPhrases = new String[] {"So, ", "Therefore, ", "This is why, ",
             "For that reason, ", "Which means that ", "In all, ", "On the whole, "};
     private static final String[] transitions = new String[] {"Even though ", "Though ", "Although ",
@@ -44,11 +44,13 @@ public class Controller {
 
         //Determine Ethics Relevance and Valence
         if(ethicInd == preference){
-            ethRel = new Relevance(0.1 * getRandomNumber(5, 10), goal[getRandomNumber(0, 2)]);
+            //ethRel = new Relevance(0.1 * getRandomNumber(5, 10), goal[getRandomNumber(0, 2)]);
+            ethRel = new Relevance(0.1 * getRandomNumber(5, 10), getRandomNumber(0, 2));
             ethVal = new Valence(0.1 * getRandomNumber(5, 10));
         }
         else{
-            ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
+            //ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
+            ethRel = new Relevance(Math.random(), getRandomNumber(0, 2));
             if(ethRel.relevance > 0.5){
                 ethVal = new Valence(0.1 * getRandomNumber(0, 5));
             }
@@ -58,7 +60,7 @@ public class Controller {
         }
 
         Responses.add("** Agency " + ethics[ethicInd] + " **");
-        Responses.add("** Coppélia wishes to " + ethRel.getGoal() + " **");     // Make goal explicit
+        Responses.add("** Coppélia wishes to " + ethRel.chooseGoal() + " **");     // Make goal explicit
         Responses.add(eth.getObservation());    // Ethics Observation
         Responses.add(eth.getAssessment());     // Ethics Assessment
         Responses.add(ethRel.getRelevance());   // Determine the Relevance
@@ -101,6 +103,7 @@ public class Controller {
         response.append(Responses.get(1)).append("\n");      // Append Coppélia goal
         response.append(Responses.get(2)).append("\n");      // Append Ethics Observation
 
+        // Append Ethics Assessment
         if(eth.ethics > 0.5 && ethRel.relevance > 0.5){
             response.append(Responses.get(3)).append("\n").append(causalPhrases[causalPhrInd]).append(Responses.get(4)).append("\n");
         }
@@ -124,7 +127,7 @@ public class Controller {
         response.append(Responses.get(5));
 
         //Add Similarity
-        response.append(Responses.get(6));
+        //response.append(Responses.get(6));
 
         System.out.println(response.toString());
     }
