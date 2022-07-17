@@ -12,7 +12,7 @@ public class Relevance {
     public double relevance;
     private int goalIndex;
     private String relStr;
-    private String preposition="to";
+    private String preposition;
     public String str;//the final out string
     public String[] personVerbStr={"think","find"};
     public String[] relevanceStr={"irrelevant","has little to do","trivial with respect to my concern","beside the point of","relevant","important","essential","critical"};
@@ -40,6 +40,13 @@ public class Relevance {
         this.goalIndex=goal;
         this.relStr=chooseRelevance();
         this.generate();
+    }
+
+    public void setPreposition(String preposition){
+        this.preposition=preposition;
+    }
+    public String getPreposition(){
+        return this.preposition;
     }
 
     public String chooseRelevance(){
@@ -80,12 +87,12 @@ public class Relevance {
     public String chooseGoal(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         if(this.goalIndex==1){
-            if(this.relStr.indexOf("has little to do")>0){
-                this.preposition="with";
+            if(this.relStr.indexOf("has little to do")>=0){
+                setPreposition("with");
                 return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
             }
-            else if(this.relStr.indexOf("relevant")>0){
-                this.preposition="for";
+            else if(this.relStr.indexOf("relevant")>=0){
+                setPreposition("for");
                 return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
             }
             else{
@@ -95,12 +102,12 @@ public class Relevance {
         }
 
         else{
-            if(this.relStr.contains("has little to do")){
-                this.preposition="with";
+            if(this.relStr.indexOf("has little to do")>=0){
+                setPreposition("with");
                 return goalStr[0][0][1];
             }
-            else if(this.relStr.contains("relevant")){
-                this.preposition="for";
+            else if(this.relStr.indexOf("relevant")>=0){
+                setPreposition("for");
                 return goalStr[0][0][1];
             }
             else{
@@ -130,8 +137,9 @@ public class Relevance {
         }
 
 
+        String goal=this.chooseGoal();
         //generate the most basic sentence
-        this.str=sentenceComponents.itBeAdj(pronouns, this.relStr, this.preposition, this.chooseGoal());
+        this.str=sentenceComponents.itBeAdj(pronouns, this.relStr, getPreposition(), goal);
 
 
         // choose basic(It is ...) / complex sentence(I think it...)

@@ -1,15 +1,30 @@
 package dimensions;
 
+import generateRelated.GenarateSentenceTool;
+import generateRelated.SentenceComponents;
+
+/**
+ * @Author Yooki ZHANG
+ * @Date 15/7/2022
+ * @Description:
+ */
+
 //import java.util.Scanner;
 
 public class UseIntention{
 
+    private String str;
     private int index;
     private double num;
     //private double valenceNum;
-    private String goal;
-    private Boolean isAction;
+    private int goal;
+    //private Boolean isAction;
     private Boolean isFirstTime;
+    private String[] feelingsStr={
+            "it pains me to say that", "sorry, ","actually, ","OK, ","yes, "
+    };
+    private String[] degreeStr={"hardly","little","really"};
+    public String[] personVerbStr={"have use on","feel need to","want to","wish to","will","would like to", "feel like"};
     private String[] againStr={"again","one more time","another time"};
 
     private final String[] useIntentionStr= {
@@ -29,24 +44,30 @@ public class UseIntention{
 };
     //private final String[] useIntentionNegative = {};
 
+    public void generate(){
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+        SentenceComponents sentenceComponents=new SentenceComponents();
 
-    private String grammerly(){
-        String out= useIntentionStr[(int)this.num*12-1];
 
-        /*
-        if(isAction){
-            out+=" with";
-        }
-        if(isFirstTime){
-            out+=" you.";
-        }*/
         if(!this.isFirstTime){
-            out+=againStr[(int)Math.random()*3-1]+".";
+            sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
         }
-        return out;
+        this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+        this.str=genarateSentenceTool.addPunctuation(2,this.str);
+
     }
 
-    public UseIntention(String goal,Boolean isAction, Boolean isFirstTime,double ethics, double age, double income, double pet){
+    public UseIntention(int goal, Boolean isFirstTime){
+        this.goal=goal;
+        this.isFirstTime=isFirstTime;
+    }
+
+    public String getUseIntention(){
+        return this.str;
+    }
+
+    /*
+    public UseIntention(int goal, Boolean isFirstTime,double ethics, double age, double income, double pet){
         double [][] arr={{ethics,age,income,pet}};
         double weight=(double) 1/(double) 4;
         double [][] B_ui={{weight},{weight},{weight},{weight}};
@@ -56,7 +77,7 @@ public class UseIntention{
 
         //added on 2022/6/25
         this.goal=goal;
-        this.isAction=isAction;
+        //this.isAction=isAction;
         this.isFirstTime=isFirstTime;
 
 
@@ -64,16 +85,8 @@ public class UseIntention{
     }
 
     public String getUseIntention() {
-        /*
-        if(this.num>0.5){
-            return useIntentionPositive[(int)((this.num-0.5)*2.5)];
-        }
-        else{
-            return useIntentionNegative[(int)(this.num*2.5)];
-        }
-*/
-        return grammerly();
-    }
+        return this.str;
+    }*/
 
     /*
     public String compare(){
