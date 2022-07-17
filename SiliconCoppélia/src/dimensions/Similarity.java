@@ -72,7 +72,7 @@ public class Similarity {
     public double weightCalculator() {
         double grades = 0;
         for (double value : this.factors.values()) grades += value;
-        return similarity != 0 ? grades * 0.4 + similarity * 0.6 : grades * 0.5;
+        return grades != 0 ? grades * 0.4 + similarity * 0.6 : similarity;
     }
 
     public void speakOut() {
