@@ -41,14 +41,14 @@ public class Epistemic{
     }
 
     public String getStatement() {
-//        return statementMap.get(Math.ceil(this..*5));
-        return null;
+        return statementMap.get(Math.ceil(this.trueDegreeOfStatement*5));
+        
     }
 
 
     public String getAssessment() {
-//        return assessmentMap.get(Math.ceil(this...*10));
-        return null;
+        return assessmentMap.get(Math.ceil(this.trueDegreeOfStatement*10));
+        
     }
 
 
