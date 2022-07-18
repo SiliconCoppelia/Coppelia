@@ -7,30 +7,20 @@ import java.util.Map;
 /**
  * @Author Anthony Z.
  * @Date 22/6/2022
- * @Description: 不太清楚你要傳入什麽參數，就給你一個傳一個參數的constructor
+ * @Description: 
  */
 public class Affordance {
-    private double speed; // from 0 to 1
-    private double score;
-
+    private double aff; // from 0 to 1
     Map<Integer, String> statementMap;
     Map<Integer, String> assessmentMap;
-
-    // 傳2個參數的constructor
-    public Affordance(double speed, double score){
-        this.speed = speed;
-        this.score = score;
-        this.statementMap = new HashMap<>();
-        this.assessmentMap = new HashMap<>();
-        this.initialize();
-    }
+    
 
     // 傳1個參數的constructor
-    public Affordance(double speed){
-        if(speed<0 || speed>1){
+    public Affordance(double aff){
+        if(aff<0 || aff>1){
             throw new InvalidParameterException();
         }
-        this.speed = speed;
+        this.aff = aff;
         this.statementMap = new HashMap<>();
         this.assessmentMap = new HashMap<>();
         this.initialize();
@@ -59,11 +49,11 @@ public class Affordance {
 
 
     public String getStatement() {
-        return statementMap.get(Math.ceil(this.speed*5));
+        return statementMap.get(Math.ceil(this.aff*5));
     }
 
 
     public String getAssessment() {
-        return assessmentMap.get(Math.ceil(this.speed*10));
+        return assessmentMap.get(Math.ceil(this.aff*10));
     }
 }
