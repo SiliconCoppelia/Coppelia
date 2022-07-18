@@ -7,24 +7,28 @@ import java.util.Map;
  * @Author Anthony Z.
  * @Date 27/6/2022
  * @Description:
- *
- * 我認爲可以傳入4個元素的美感 從零到一
- * 然後下次再討論設計出一個邏輯來返回值
  */
 public class Aesthetics{
-    private double eyes;
-    private double hair;
-    private double lips;
-    private double voice;
+    double aes;
+    /**
+     * Statement:
+     * 0->0.25 
+     * 0.26->0.5
+     * 0.51->0.75
+     * 0.76->1.0
+     * 
+     * the aes locates in any interval, say the aes is 0.23 which
+     * is in first interval, and it means that eyes features most. 
+     * 
+     * Assessment:
+     * 0 -> 1 the larger, the more attractive.  
+     */
 
     Map<Integer, String> statementMap;
     Map<Integer, String> assessmentMap;
 
-    public Aesthetics(double eyes, double hair, double lips, double voice){
-        this.eyes = eyes;
-        this.hair = hair;
-        this.lips = lips;
-        this.voice = voice;
+    public Aesthetics(double aes){
+        this.aes = aes;
         this.statementMap = new HashMap<>();
         this.assessmentMap = new HashMap<>();
         this.initialize();
@@ -50,13 +54,12 @@ public class Aesthetics{
 
 
     public String getStatement() {
-//        return statementMap.get(Math.ceil(this..*4));
-        return null;
+        return statementMap.get(Math.ceil(this.aes*4));
     }
 
 
     public String getAssessment() {
-//        return assessmentMap.get(Math.ceil(this...*10));
+        return assessmentMap.get(Math.ceil(this.aes*10));
         return null;
     }
 }
