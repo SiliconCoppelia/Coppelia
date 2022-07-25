@@ -13,7 +13,7 @@ import generateRelated.*;
 import javax.swing.*;
 
 public class Valence{
-    private double valence;
+    public double valence;
     public String str;
     public String valStr;
 
@@ -123,7 +123,7 @@ public class Valence{
     }
 
     public String getValence(){
-        return this.str;
+        return this.str+" ("+this.valence+")";
     }
 
 }

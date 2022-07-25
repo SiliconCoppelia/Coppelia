@@ -190,7 +190,7 @@ public class Relevance {
     }
 
     public String getRelevance(){
-        return this.str;
+        return this.str+" ("+this.relevance+")";
     }
 
 

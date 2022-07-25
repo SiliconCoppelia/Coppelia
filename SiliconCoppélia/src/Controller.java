@@ -21,11 +21,12 @@ public class Controller {
 
 
     // Required Integers
-    private static final int ethicInd = getRandomNumber(0, ethics.length);
     private static final int preference = 0;    //0 for kind person; 1 for bad personality; and 3 for evil ppl
-    private static final int affInd = getRandomNumber(0, affordance.length);
+    private static final int ethicInd = getRandomNumber(0, ethics.length);
     private static final int causalPhrInd = getRandomNumber(0, causalPhrases.length);
     private static final int transitionsInd = getRandomNumber(0, transitions.length);
+
+    private static final int affInd = getRandomNumber(0, affordance.length);
 
     // Objects
     private static final Ethics eth = new Ethics(ethicInd, Math.random());
@@ -42,7 +43,7 @@ public class Controller {
 
         System.out.println("Hi, I'm Coppélia.\n");
 
-        //Determine Ethics Relevance and Valence
+        //Determine Ethics --> Relevance and Valence
         if(ethicInd == preference){
             //ethRel = new Relevance(0.1 * getRandomNumber(5, 10), goal[getRandomNumber(0, 2)]);
             ethRel = new Relevance(0.1 * getRandomNumber(5, 10), getRandomNumber(0, 2));
@@ -57,6 +58,16 @@ public class Controller {
             else{
                 ethVal = new Valence(0.1 * getRandomNumber(5, 10));
             }
+        }
+
+        //Determine Ethics --> Similarity
+        if(ethicInd == preference){
+        }
+
+        //Determine Ethics --> Involvement
+        if(ethicInd == preference){
+        }
+        else{
         }
 
         Responses.add("** Agency " + ethics[ethicInd] + " **");

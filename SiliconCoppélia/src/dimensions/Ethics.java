@@ -44,35 +44,35 @@ public class Ethics{
             if(ethics > 0.66){
                 int i = getRandomNumber(4, 10);
                 if(i > 6){
-                    return "("+this.ethics+") "+assessment.append(getScale()).append(asses[i]).toString();
+                    return assessment.append(getScale()).append(asses[i]).toString()+" ("+this.ethics+")";
                 }
                 else{
-                    return "("+this.ethics+") "+assessment.append(asses[i]).toString();
+                    return assessment.append(asses[i]).toString()+" ("+this.ethics+")";
                 }
             }
             else if(ethics <= 0.66 && ethics > 0.33){
-                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString();
+                return assessment.append(getScale()).append(asses[getRandomNumber(7, 14)]).toString()+" ("+this.ethics+")";
             }
             else{
                 int i = getRandomNumber(7, 15);
                 if(i == 14){
-                    return "("+this.ethics+") "+asses[i];
+                    return asses[i]+" ("+this.ethics+")";
                 }
                 else{
-                    return "("+this.ethics+") "+assessment.append(getScale()).append(asses[i]).toString();
+                    return assessment.append(getScale()).append(asses[i]).toString()+" ("+this.ethics+")";
                 }
             }
         }
         else if(index == 1 || index == 2){
             StringBuffer assessment = new StringBuffer("You do not seem to be ");
             if(ethics > 0.66){
-                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString();
+                return assessment.append(getScale()).append(asses[getRandomNumber(7, 10)]).toString()+" ("+this.ethics+")";
             }
             else if(ethics <= 0.66 && ethics > 0.33){
-                return "("+this.ethics+") "+assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString();
+                return assessment.append(getScale()).append(asses[getRandomNumber(10, 14)]).toString()+" ("+this.ethics+")";
             }
             else{
-                return "("+this.ethics+") "+asses[getRandomNumber(15, 21)];
+                return asses[getRandomNumber(15, 21)]+" ("+this.ethics+")";
             }
         }
         return "I cannot seem to asses my observations";

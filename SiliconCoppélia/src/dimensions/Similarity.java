@@ -11,7 +11,7 @@ import java.util.Random;
 class SimilarityBuilder{
     private String targetG = "Unknown";
     private int targetAge = -1;
-    private final double similarityGrade;
+    public final double similarityGrade;
 
     public SimilarityBuilder(double Similarity) {
         this.similarityGrade = Similarity;
