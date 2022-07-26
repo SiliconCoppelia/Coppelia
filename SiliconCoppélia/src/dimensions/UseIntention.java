@@ -21,7 +21,7 @@ public class UseIntention{
     //private Boolean isAction;
     private Boolean isFirstTime;
     private String[] feelingsStr={
-            "it pains me to say that", "sorry, ","actually, ","OK, ","yes, "
+            "it pains me to say that", "sorry","actually","OK","yes"
     };
     private String[] degreeStr={"hardly","little","really"};
     public String[] personVerbStr={"have use on","feel need to","want to","wish to","will","would like to", "feel like"};
@@ -48,17 +48,26 @@ public class UseIntention{
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
 
-
-        if(!this.isFirstTime){
-            sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
+        if(this.num<0.5){
+            if(!this.isFirstTime){
+                sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
+            }
+            this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+            this.str=genarateSentenceTool.addPunctuation(2,this.str);
         }
-        this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
-        this.str=genarateSentenceTool.addPunctuation(2,this.str);
-
+        else{
+            if(!this.isFirstTime){
+                sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
+            }
+            this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
+            this.str=genarateSentenceTool.addPunctuation(2,this.str);
+        }
+        
     }
 
-    public UseIntention(int goal, Boolean isFirstTime){
+    public UseIntention(int goal, double userIntention, Boolean isFirstTime){
         this.goal=goal;
+        this.num=userIntention;
         this.isFirstTime=isFirstTime;
     }
 
