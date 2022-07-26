@@ -35,6 +35,14 @@ public class GenarateSentenceTool {
         }
     }
 
+    public String deleteINGifContained(String str){
+        if(str.contains("ing ")){
+            int cutIndex=str.indexOf("ing ");
+            return str.substring(0,cutIndex).concat(str.substring(cutIndex+3));
+        }
+        return str;
+    }
+
 
     //Generate the random integer in generating the sentences
     public int randomInt(int min, int max){

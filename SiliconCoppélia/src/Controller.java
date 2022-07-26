@@ -1,4 +1,5 @@
 import dimensions.*;
+import generateRelated.GenarateSentenceTool;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -39,6 +40,8 @@ public class Controller {
 
     public static void main(String[] args){
 
+        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
+
         File output = new File("output.txt");
 
         System.out.println("Hi, I'm Coppélia.\n");
@@ -71,7 +74,7 @@ public class Controller {
         }
 
         Responses.add("** Agency " + ethics[ethicInd] + " **");
-        Responses.add("** Coppélia wishes to " + ethRel.chooseGoal() + " **");     // Make goal explicit
+        Responses.add("** Coppélia wishes to " + genarateSentenceTool.deleteINGifContained(ethRel.chooseGoal()) + " **");     // Make goal explicit
         Responses.add(eth.getObservation());    // Ethics Observation
         Responses.add(eth.getAssessment());     // Ethics Assessment
         Responses.add(ethRel.getRelevance());   // Determine the Relevance
