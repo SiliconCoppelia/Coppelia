@@ -49,6 +49,15 @@ public class Controller {
 
         System.out.println("Hi, I'm Coppélia.\n");
 
+        EthicsCreation();
+        EthicsSentenceCreation();
+        //storeOutput(output, Responses);
+        EthicsSentenceFormulation();
+
+        System.exit(0);
+    }
+
+    private static void EthicsCreation(){
         //Determine Ethics --> Relevance and Valence
         ethRel = new Relevance(0.1 * getRandomNumber(5, 10), getRandomNumber(0, 2));
         if(ethicInd == preference){
@@ -80,12 +89,6 @@ public class Controller {
 
         //Determine Ethics --> Action
         ethAction = new SelectAction(Math.random() ,1);
-
-        EthicsSentenceCreation();
-        //storeOutput(output, Responses);
-        EthicsSentenceFormulation();
-
-        System.exit(0);
     }
 
     private static void EthicsSentenceCreation(){
