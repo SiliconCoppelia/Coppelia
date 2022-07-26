@@ -9,15 +9,15 @@ import generateRelated.*;
 
 public class Relevance {
 
-    public double relevance;
+    private double relevance;
     private int goalIndex;
     private String relStr;
     private String preposition;
-    public String str;//the final out string
-    public String[] personVerbStr={"think","find"};
-    public String[] relevanceStr={"irrelevant","has little to do","trivial with respect to my concern","beside the point of","relevant","important","essential","critical"};
+    private String str;//the final out string
+    private String[] personVerbStr={"think","find"};
+    private String[] relevanceStr={"irrelevant","has little to do","trivial with respect to my concern","beside the point of","relevant","important","essential","critical"};
 
-    public String[][][] goalStr={
+    private String[][][] goalStr={
             {//goalIndex=1
                     {"be friends", "being friends"},
                     {"be your friend", "being your friend"},
@@ -32,8 +32,8 @@ public class Relevance {
             }
     };
 
-    public String[] degreeStr={"quite", "rather", "tremendously", "very", "totally", "enormously"};
-    public String[] modalParticle={"trust me", "believe me", "really"};
+    private String[] degreeStr={"quite", "rather", "tremendously", "very", "totally", "enormously"};
+    private String[] modalParticle={"trust me", "believe me", "really"};
 
     public Relevance(double RELEVANCE, int goal){//1 for help, 2 for make friends
         this.relevance=RELEVANCE;
@@ -42,14 +42,14 @@ public class Relevance {
         this.generate();
     }
 
-    public void setPreposition(String preposition){
+    private void setPreposition(String preposition){
         this.preposition=preposition;
     }
-    public String getPreposition(){
+    private String getPreposition(){
         return this.preposition;
     }
 
-    public String chooseRelevance(){
+    private String chooseRelevance(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
         String finalRel;
@@ -146,7 +146,7 @@ public class Relevance {
         }
     }
 
-    public void generate(){
+    private void generate(){
         SentenceComponents sentenceComponents=new SentenceComponents();
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
 

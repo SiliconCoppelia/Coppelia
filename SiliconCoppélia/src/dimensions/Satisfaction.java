@@ -10,10 +10,10 @@ import generateRelated.*;
 public class Satisfaction {
 
     private double satisfaction;
-    public String str;
-    public String valStr;
+    private String str;
+    private String valStr;
 
-    public String[] objectiveStr={
+    private String[] objectiveStr={
             //adding degreeStr
             "you're a failure",
             "you are a loser",
@@ -38,7 +38,7 @@ public class Satisfaction {
     };
 
     //the simple sentence that do not use the structure of "you are xxx"
-    public String[] simpleStr={
+    private String[] simpleStr={
             "feel quite dissatisfied with",
             "am pretty displeased with",
             "really dislike",
@@ -52,12 +52,12 @@ public class Satisfaction {
 
     //public String[] valenceStr={};
 
-    public String[] emotionStr={"no","actually","I must say","great","perfect","excellent"};
-    public String[] personVerbStr={"think","believe","guess","know", "feel"};
+    private String[] emotionStr={"no","actually","I must say","great","perfect","excellent"};
+    private String[] personVerbStr={"think","believe","guess","know", "feel"};
     //after objective sentence
-    public String[] degreeStr={"tremendously", "totally", "extremely", "enormously", "absolutely"};
+    private String[] degreeStr={"tremendously", "totally", "extremely", "enormously", "absolutely"};
     //after subjective sentence "I truly/totally..."
-    public String[] levelStr={"truly","totally","quite","really"};
+    private String[] levelStr={"truly","totally","quite","really"};
 
 
     public Satisfaction(double SATISFACTION){
@@ -65,7 +65,7 @@ public class Satisfaction {
         this.generation();
     }
 
-    public void generation(){
+    private void generation(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
         if(this.satisfaction<0.5){

@@ -31,9 +31,13 @@ public class Controller {
 
     // Objects
     private static final Ethics eth = new Ethics(ethicInd, Math.random());
+    private static final GenarateSentenceTool genarateSentenceTool = new GenarateSentenceTool();
     private static Relevance ethRel;
     private static Valence ethVal;
     private static Similarity ethSim;
+    private static Involvement ethInv;
+    private static Satisfaction ethSat;
+    private static SelectAction ethAction;
 
     // Responses and final Sentence Construction
     private static final List<String> Responses = new ArrayList<String>();
@@ -41,28 +45,19 @@ public class Controller {
 
     public static void main(String[] args){
 
-        GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
-
         File output = new File("output.txt");
 
         System.out.println("Hi, I'm Coppélia.\n");
 
         //Determine Ethics --> Relevance and Valence
         ethRel = new Relevance(0.1 * getRandomNumber(5, 10), getRandomNumber(0, 2));
-        if(ethicInd == 0 || ethicInd == 1){
+        if(ethicInd == preference){
             //ethRel = new Relevance(0.1 * getRandomNumber(5, 10), goal[getRandomNumber(0, 2)]);
-            ethRel = new Relevance(0.1 * getRandomNumber(5, 10), getRandomNumber(0, 2));
             ethVal = new Valence(0.1 * getRandomNumber(5, 10));
         }
         else{
             //ethRel = new Relevance(Math.random(), goal[getRandomNumber(0, 2)]);
-            ethRel = new Relevance(Math.random(), getRandomNumber(0, 2));
-            if(ethRel.getter() > 0.5){
-                ethVal = new Valence(0.1 * getRandomNumber(0, 5));
-            }
-            else{
-                ethVal = new Valence(0.1 * getRandomNumber(5, 10));
-            }
+            ethVal = new Valence(0.1 * getRandomNumber(0, 5));
         }
 
         //Determine Ethics --> Similarity
@@ -74,26 +69,39 @@ public class Controller {
         }
 
         //Determine Ethics --> Involvement
+        ethInv = new Involvement(Math.random());
         if(ethicInd == preference){
         }
         else{
         }
 
-        Responses.add("** Agency " + ethics[ethicInd] + " **");
-        Responses.add("** Coppélia wishes to " + genarateSentenceTool.deleteINGifContained(ethRel.chooseGoal()) + " **");     // Make goal explicit
-        Responses.add(eth.getObservation());    // Ethics Observation
-        Responses.add(eth.getAssessment());     // Ethics Assessment
-        Responses.add(ethRel.getRelevance());   // Determine the Relevance
-        Responses.add(ethVal.getValence());     // Determine the Valence
-        Responses.add(ethSim.getSimilarity());        // Determine the Similarity
+        //Determine Ethics --> Satisfaction
+        ethSat = new Satisfaction(Math.random());
 
+        //Determine Ethics --> Action
+        ethAction = new SelectAction(Math.random() ,1);
+
+        EthicsSentenceCreation();
         //storeOutput(output, Responses);
-        sentenceFormulation();
+        EthicsSentenceFormulation();
 
         System.exit(0);
     }
 
-    private static void sentenceFormulation(){
+    private static void EthicsSentenceCreation(){
+        Responses.add("** Agency " + ethics[ethicInd] + " **");
+        Responses.add("** Coppélia wishes to " + genarateSentenceTool.deleteINGifContained(ethRel.chooseGoal(true)) + " **");     // Make goal explicit
+        Responses.add(eth.getObservation());            // Ethics Observation
+        Responses.add(eth.getAssessment());             // Ethics Assessment
+        Responses.add(ethRel.getRelevance());           // Determine the Relevance
+        Responses.add(ethVal.getValence());             // Determine the Valence
+        Responses.add(ethSim.getSimilarity());          // Determine the Similarity
+        Responses.add(ethInv.getInvolvement());         // Determine the Involvement
+        Responses.add(ethSat.getSatisfaction());        // Determine the Satisfaction
+        Responses.add(ethAction.getSelectAction());     // Determine the Action
+    }
+
+    private static void EthicsSentenceFormulation(){
         response.append(Responses.get(0)).append("\n");      // Append Agency Features
         response.append(Responses.get(1)).append("\n");      // Append Coppélia goal
         response.append(Responses.get(2)).append("\n");      // Append Ethics Observation
@@ -123,6 +131,15 @@ public class Controller {
 
         //Add Similarity
         response.append(Responses.get(6)).append("\n");
+
+        //Add Involvement
+        response.append(Responses.get(7)).append("\n");
+
+        //Add Satisfaction
+        response.append(Responses.get(8)).append("\n");
+
+        //Add Action
+        response.append(Responses.get(9)).append("\n");
 
         System.out.println(response.toString());
     }

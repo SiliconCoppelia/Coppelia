@@ -22,7 +22,7 @@ public class SelectAction {
         this.generate();
     }
 
-    public String[] stayStill = {
+    private String[] stayStill = {
             "Stop. I won’t move a finger",
             "I will do nothing",
             "I don’t think any action is required",
@@ -33,7 +33,7 @@ public class SelectAction {
             "Take it easy. No worries. Relax"
     };
 
-    public String[] change = {
+    private String[] change = {
             "Really, this is not the way. Please follow my lead",
             "Take notice. I will teach you a lesson",
             "Let me tell you how to do it well this time",
@@ -42,7 +42,7 @@ public class SelectAction {
             "Look how I am doing it"
     };
 
-    public String[] avoid = {
+    private String[] avoid = {
             "I am out of here",
             "Please, get out of my way",
             "Please, stay away from me",
@@ -55,7 +55,7 @@ public class SelectAction {
 
 };
 
-    public String[] positiveApproach = {
+    private String[] positiveApproach = {
             "Give me a kiss!",
             "Give me a hug!",
             "You deserve a pat on the back",
@@ -65,7 +65,7 @@ public class SelectAction {
             "I compliment you on your social skills"/* when related to friendship */
     };
 
-    public String[] negativeApproach = {
+    private String[] negativeApproach = {
             "I would like to slap you in the face",
             "You should be punished for that",
             "I wish ill on you",
@@ -79,7 +79,7 @@ public class SelectAction {
             "I feel like arguing with you"
     };
 
-    public void generate(){
+    private void generate(){
 
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
