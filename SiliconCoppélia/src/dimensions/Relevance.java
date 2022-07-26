@@ -103,35 +103,45 @@ public class Relevance {
         return finalRel;
     }
 
-    public String chooseGoal(){
+    public String chooseGoal(boolean isExternal){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
-        if(this.goalIndex==1){
-            if(this.relStr.contains("has little to do")){
-                setPreposition("with");
-                return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
-            }
-            else if(this.relStr.contains("relevant")){
-                setPreposition("for");
-                return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
-            }
-            else{
-                this.preposition="to";
+        if(isExternal){
+            if(this.goalIndex==1){
                 return goalStr[0][genarateSentenceTool.randomInt(0,5)][0];
             }
-        }
-
-        else{
-            if(this.relStr.contains("has little to do")){
-                setPreposition("with");
-                return goalStr[1][0][1];
-            }
-            else if(this.relStr.contains("relevant")){
-                setPreposition("for");
-                return goalStr[1][0][1];
-            }
             else{
-                this.preposition="to";
                 return goalStr[1][0][0];
+            }
+        }
+        else{
+            if(this.goalIndex==1){
+                if(this.relStr.contains("has little to do")){
+                    setPreposition("with");
+                    return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
+                }
+                else if(this.relStr.contains("relevant")){
+                    setPreposition("for");
+                    return goalStr[0][genarateSentenceTool.randomInt(0,5)][1];
+                }
+                else{
+                    this.preposition="to";
+                    return goalStr[0][genarateSentenceTool.randomInt(0,5)][0];
+                }
+            }
+
+            else{
+                if(this.relStr.contains("has little to do")){
+                    setPreposition("with");
+                    return goalStr[1][0][1];
+                }
+                else if(this.relStr.contains("relevant")){
+                    setPreposition("for");
+                    return goalStr[1][0][1];
+                }
+                else{
+                    this.preposition="to";
+                    return goalStr[1][0][0];
+                }
             }
         }
     }
@@ -156,7 +166,7 @@ public class Relevance {
         }
 
 
-        String goal=this.chooseGoal();
+        String goal=this.chooseGoal(false);
         //generate the most basic sentence
         if(this.relStr.contains("has little to do")){
             this.str=sentenceComponents.SVO(pronouns, sentenceComponents.concatTheSentence(this.relStr, getPreposition()), goal);
