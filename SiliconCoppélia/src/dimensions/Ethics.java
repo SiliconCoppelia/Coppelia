@@ -3,7 +3,7 @@ package dimensions;
 
 public class Ethics{
     private final double index;
-    public final double ethics;
+    private final double ethics;
     private final String[] scale = new String[] {"somewhat ", "very "};
     private final String[] features = new String[] {"friendly face", "angry", "cheating"};
     private final String[] observe = new String[] {"I see a ", "You seem to have a ", "I found you with a ", "You seem to be ", "You look ", "I think you are ", "I found you ", "You are "};
@@ -91,5 +91,9 @@ public class Ethics{
 
     private static int getRandomNumber(int min, int max) {
         return (int)((Math.random() * (max - min)) + min);
+    }
+
+    public double getter(){
+        return this.ethics;
     }
 }
