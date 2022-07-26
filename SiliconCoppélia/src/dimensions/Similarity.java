@@ -11,6 +11,7 @@ import java.util.Random;
 class SimilarityBuilder{
     private String targetG = "Unknown";
     private int targetAge = -1;
+    private double kindness = 0.0;
     public final double similarityGrade;
 
     public SimilarityBuilder(double Similarity) {
@@ -18,7 +19,7 @@ class SimilarityBuilder{
     }
 
     public Similarity buildSimilarity() {
-        return new Similarity(this.targetG, this.targetAge, this.similarityGrade);
+        return new Similarity(this.targetG, this.targetAge, this.kindness, this.similarityGrade);
     }
 
     public SimilarityBuilder targetG(String targetG) {
@@ -29,6 +30,11 @@ class SimilarityBuilder{
     public SimilarityBuilder targetAge(int targetAge) {
         this.targetAge  = targetAge;
         return this;
+    }
+
+    public SimilarityBuilder kindness(double kindness) {
+        this.kindness = kindness;
+        return  this;
     }
 }
 
@@ -43,6 +49,7 @@ public class Similarity {
     // instances waiting for assigning
     private final String targetG;
     private final int targetAge;
+    private final double kindness;
     private final double similarity;
     HashMap<String, Double> factors = new HashMap<>();
 
@@ -52,9 +59,10 @@ public class Similarity {
      * @param tarAge target age, default set as -1 if you call SimilarityBuilder to initialize this class
      * @param similarity grades from underling AI structure, necessary arguments when call SimilarityBuilder
      */
-    public Similarity(String tarGender, int tarAge, double similarity){
+    public Similarity(String tarGender, int tarAge, double kindness, double similarity){
         this.targetG = tarGender;
         this.targetAge = tarAge;
+        this.kindness = kindness;
         this.similarity = similarity;
     }
 
@@ -68,6 +76,12 @@ public class Similarity {
         if (this.targetAge == -1) this.factors.put(Integer.toString(this.targetAge), 0.0);
         else this.factors.put(Integer.toString(this.targetAge), Math.abs((this.targetAge - this.age) / 100.00));
     }
+
+    /**
+     * after tests, it is believed adding kindness may increase the final grades,
+     * which means Coppelia may more tend to think "we" are alike...
+     */
+    public void kindJudge() {factors.put("kindness", this.kindness);}
 
     public double weightCalculator() {
         double grades = 0;
@@ -93,6 +107,7 @@ public class Similarity {
     public void console() {
         genderJudge();
         ageJudge();
+        kindJudge();
         weightCalculator();
         speakOut();
     }
@@ -110,8 +125,10 @@ class invoke{
         Similarity test = new SimilarityBuilder(ran).buildSimilarity();
         ran = generator.nextDouble();
         System.out.println(ran);
-        Similarity test1 = new SimilarityBuilder(ran).targetG("Male").targetAge(60).buildSimilarity();
+        Similarity test1 = new SimilarityBuilder(ran).targetG("Male").targetAge(60).kindness(0.6).buildSimilarity();
+        Similarity test2 = new SimilarityBuilder(ran).targetG("Male").targetAge(60).buildSimilarity();
         test.console();
         test1.console();
+        test2.console();
     }
 }
