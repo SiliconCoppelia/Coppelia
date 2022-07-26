@@ -193,5 +193,7 @@ public class Relevance {
         return this.str+" ("+this.relevance+")";
     }
 
-
+    public double getter(){
+        return this.relevance;
+    }
 }

@@ -3,11 +3,44 @@ import java.lang.Math;
 import java.util.HashMap;
 import java.util.Random;
 
+
+public class Similarity{
+    private double similarity;
+    private StringBuffer response = new StringBuffer("");
+    private final String[] str = new String[]{
+            "We are not so alike, that makes me doubt a little about us",
+    "We are quite alike, that makes me convinced about us",
+    "We are much alike, that makes me even more convinced about us"};
+
+    public Similarity(double similarity){
+        this.similarity = similarity;
+    }
+
+    public String getSimilarity(){
+        if(this.similarity <= 0.33){
+            response.append(str[0]);
+        }
+        else if(this.similarity > 0.33 && this.similarity <= 0.66){
+            response.append(str[1]);
+        }
+        else{
+            response.append(str[2]);
+        }
+        return response.append(" (").append(this.similarity).append(")").toString();
+    }
+
+    public double getter(){
+        return this.similarity;
+    }
+}
+
 /**
  * SimilarityBuilder -- auxiliary class supporting partial instance input initialization of Similarity
  * @version 1.0
  * @author Qi Shihao
  */
+
+/*----------------------------------------------
 class SimilarityBuilder{
     private String targetG = "Unknown";
     private int targetAge = -1;
@@ -37,11 +70,14 @@ class SimilarityBuilder{
         return  this;
     }
 }
+----------------------------------------------*/
 
 /**
  * Similarity -- to calculate the similarity of target and Coppelia
  * version 1.0
  */
+
+/*----------------------------------------------
 public class Similarity {
     // pre-defined and never changed instance
     private final String gender = "Female";
@@ -52,6 +88,7 @@ public class Similarity {
     private final double kindness;
     private final double similarity;
     HashMap<String, Double> factors = new HashMap<>();
+----------------------------------------------*/
 
     /**
      * Here we do not allow any instance variable to be change once they are assigned.
@@ -59,6 +96,8 @@ public class Similarity {
      * @param tarAge target age, default set as -1 if you call SimilarityBuilder to initialize this class
      * @param similarity grades from underling AI structure, necessary arguments when call SimilarityBuilder
      */
+
+    /*----------------------------------------------
     public Similarity(String tarGender, int tarAge, double kindness, double similarity){
         this.targetG = tarGender;
         this.targetAge = tarAge;
@@ -76,11 +115,14 @@ public class Similarity {
         if (this.targetAge == -1) this.factors.put(Integer.toString(this.targetAge), 0.0);
         else this.factors.put(Integer.toString(this.targetAge), Math.abs((this.targetAge - this.age) / 100.00));
     }
+    ----------------------------------------------*/
 
     /**
      * after tests, it is believed adding kindness may increase the final grades,
      * which means Coppelia may more tend to think "we" are alike...
      */
+
+    /*----------------------------------------------
     public void kindJudge() {factors.put("kindness", this.kindness);}
 
     public double weightCalculator() {
@@ -99,11 +141,14 @@ public class Similarity {
             System.out.println("Yes, we are much alike, that makes me even more convinced about us");
         else throw new NumberFormatException("Hey, total weight has over 1!");
     }
+    ----------------------------------------------*/
 
     /**
      * OK, you can consider this as the "controller", which will properly invoke
      * the methods in this class to achieve output.
      */
+
+    /*----------------------------------------------
     public void console() {
         genderJudge();
         ageJudge();
@@ -113,10 +158,13 @@ public class Similarity {
     }
 
 }
+----------------------------------------------*/
 
 /**
  * invoke--test set
  */
+
+/*----------------------------------------------
 class invoke{
     public static void main (String[] args) {
         Random generator = new Random();
@@ -132,3 +180,4 @@ class invoke{
         test2.console();
     }
 }
+----------------------------------------------*/

@@ -13,11 +13,11 @@ import generateRelated.*;
 import javax.swing.*;
 
 public class Valence{
-    public double valence;
-    public String str;
-    public String valStr;
+    private double valence;
+    private String str;
+    private String valStr;
 
-    public String[] objectiveStr={
+    private String[] objectiveStr={
             "it will lead to nothing but trouble",
             "things won't go well",
             "we will not get along",
@@ -32,9 +32,9 @@ public class Valence{
 
     //public String[] valenceStr={};
 
-    public String[] reasonStr={"so","because of that","therefore","due to that","I am sorry to say"};
-    public String[] personVerbStr={"fear","am afraid of","just know","have no expectation", "have little expectations","expect","have expectations","take it","have the feeling","am looking forward to"};
-    public String[] degreeStr={ "tremendously", "totally","extremely", "enormously"};
+    private String[] reasonStr={"so","because of that","therefore","due to that","I am sorry to say"};
+    private String[] personVerbStr={"fear","am afraid of","just know","have no expectation", "have little expectations","expect","have expectations","take it","have the feeling","am looking forward to"};
+    private String[] degreeStr={ "tremendously", "totally","extremely", "enormously"};
 
     public Valence(double ethics){
         this.valence = ethics;
@@ -61,7 +61,7 @@ public class Valence{
         return finalRel;
     }
 */
-    public void generate(){
+    private void generate(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
 
