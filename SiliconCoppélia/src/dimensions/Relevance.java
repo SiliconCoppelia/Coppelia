@@ -123,15 +123,15 @@ public class Relevance {
         else{
             if(this.relStr.contains("has little to do")){
                 setPreposition("with");
-                return goalStr[0][0][1];
+                return goalStr[1][0][1];
             }
             else if(this.relStr.contains("relevant")){
                 setPreposition("for");
-                return goalStr[0][0][1];
+                return goalStr[1][0][1];
             }
             else{
                 this.preposition="to";
-                return goalStr[0][0][0];
+                return goalStr[1][0][0];
             }
         }
     }

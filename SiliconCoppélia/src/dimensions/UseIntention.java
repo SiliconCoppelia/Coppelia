@@ -1,7 +1,6 @@
 package dimensions;
 
-import generateRelated.GenarateSentenceTool;
-import generateRelated.SentenceComponents;
+import generateRelated.*;
 
 /**
  * @Author Yooki ZHANG
@@ -21,54 +20,180 @@ public class UseIntention{
     //private Boolean isAction;
     private Boolean isFirstTime;
     private String[] feelingsStr={
-            "it pains me to say that", "sorry","actually","OK","yes"
+            "it pains me to say that", "sorry","actually","OK","yes","perhaps"
     };
-    private String[] degreeStr={"hardly","little","really"};
-    public String[] personVerbStr={"have use on","feel need to","want to","wish to","will","would like to", "feel like"};
+    private String[] degreeStr={"don't","hardly","really"};
+    public String[] personVerbStr={
+            "have little use", "feel little need to",
+            "feel much about", "feel need to", "want to", "feel like", "wish to", "will", "would like to"};
     private String[] againStr={"again","one more time","another time"};
+    private String[] singleSentence={
+            //negative
+            "you have to sort this out yourself",
+            "you’re on your own now"
+    };
 
-    private final String[] useIntentionStr= {
-            "Sorry, I don’t feel like helping you at all / Sorry, you have to sort this out yourself / Sorry, you’re on your own now.",
-            "Actually, I don’t want to help you",
-            "I hardly feel like reaching out and lend a helping hand",
-            "I feel little need to help you on this",
-            "I don’t feel much about assisting you",
-            "It pains me to say that I have little use helping you on this",
-
-            "Perhaps I will help you but I’m not sure about it",
-            "Okay, I will do it for you, I’ll help you out",
-            "I could be of some assistance to you if you will",
-            "Yes, I wish to assist you / I would like to try to help you",
-            "Please let me help you, I would like that",
-            "I really really want to support you!",
-};
-    //private final String[] useIntentionNegative = {};
+    public String[][][] goalStr={
+            {//goalIndex=1
+                    {"meet", "meeting"}, {"play with","playing with"}, {"support","supporting"}
+            },
+            {//goal=2
+                    {"help","helping"},{"reach out and lend a helping hand","reaching out and lend a helping hand"},{"assist","assisting"}
+            }
+    };
 
     public void generate(){
         GenarateSentenceTool genarateSentenceTool=new GenarateSentenceTool();
         SentenceComponents sentenceComponents=new SentenceComponents();
 
         if(this.num<0.5){
+            //adding feelingStr
+            if(genarateSentenceTool.randomInt(0,1)==1){
+                this.str=sentenceComponents.concatTheSentence(feelingsStr[genarateSentenceTool.randomInt(0,2)]);
+                if(!this.str.contains("pains")){//"sorry" or "actually"
+                    this.str=genarateSentenceTool.addPunctuation(1,this.str);
+                }
+            }
+            if(this.num<0.2){
+                //use simple sentence
+                if(genarateSentenceTool.randomInt(0,1)==1){
+                    if(this.str==null){
+                        this.str=singleSentence[genarateSentenceTool.randomInt(0,1)];
+                    }
+                    else{
+                        this.str=sentenceComponents.concatTheSentence(this.str,singleSentence[genarateSentenceTool.randomInt(0,1)]);
+                    }
+                }
+                // begin with I don't....
+                else{
+                    String basicStr=sentenceComponents.concatTheSentence(degreeStr[0],personVerbStr[genarateSentenceTool.randomInt(2,6)]);
+                    if(basicStr.contains("about")||basicStr.contains("like")){
+                        basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][1]);
+                    }
+                    else{
+                        basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][0]);
+                    }
+
+                    //adding you or not
+                    if(basicStr.contains("reach")){
+                        basicStr= sentenceComponents.SV(Pronouns.FIRST_PERSON,basicStr);
+                    }
+                    else{
+                        basicStr= sentenceComponents.SVO(Pronouns.FIRST_PERSON,basicStr,Pronouns.SECOND_PERSON);
+                    }
+
+                    if(this.str==null){
+                        this.str=basicStr;
+                    }
+                    else{
+                        this.str=sentenceComponents.concatTheSentence(this.str,basicStr);
+                    }
+                }
+            }
+            else{//this.num>0.2
+                String basicStr=sentenceComponents.concatTheSentence(degreeStr[1],personVerbStr[genarateSentenceTool.randomInt(2,6)]);
+                if(basicStr.contains("about")||basicStr.contains("like")){
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][1]);
+                }
+                else{
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][0]);
+                }
+
+                //adding you or not
+                if(basicStr.contains("reach")){
+                    basicStr= sentenceComponents.SV(Pronouns.FIRST_PERSON,basicStr);
+                }
+                else{
+                    basicStr= sentenceComponents.SVO(Pronouns.FIRST_PERSON,basicStr,Pronouns.SECOND_PERSON);
+                }
+
+                if(this.str==null){
+                    this.str=basicStr;
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,basicStr);
+                }
+            }
+
             if(!this.isFirstTime){
-                sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
+                this.str=sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
             }
             this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
             this.str=genarateSentenceTool.addPunctuation(2,this.str);
         }
-        else{
+
+        else{//this.num>0.5
+            //adding feelingStr
+            if(genarateSentenceTool.randomInt(0,1)==1){
+                this.str=sentenceComponents.concatTheSentence(feelingsStr[genarateSentenceTool.randomInt(3,5)]);
+                if(!this.str.contains("perhaps")){//"ok" or "yes"
+                    this.str=genarateSentenceTool.addPunctuation(1,this.str);
+                }
+            }
+
+            if(this.num<0.8){
+                String basicStr=personVerbStr[genarateSentenceTool.randomInt(2,6)];
+                if(basicStr.contains("about")||basicStr.contains("like")){
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][1]);
+                }
+                else{
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][0]);
+                }
+
+                //adding you or not
+                if(basicStr.contains("reach")){
+                    basicStr= sentenceComponents.SV(Pronouns.FIRST_PERSON,basicStr);
+                }
+                else{
+                    basicStr= sentenceComponents.SVO(Pronouns.FIRST_PERSON,basicStr,Pronouns.SECOND_PERSON);
+                }
+
+                if(this.str==null){
+                    this.str=basicStr;
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,basicStr);
+                }
+            }
+            else{//this.num>0.8
+                String basicStr=sentenceComponents.concatTheSentence(degreeStr[2],personVerbStr[genarateSentenceTool.randomInt(2,6)]);
+                if(basicStr.contains("about")||basicStr.contains("like")){
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][1]);
+                }
+                else{
+                    basicStr=sentenceComponents.concatTheSentence(basicStr,goalStr[this.goal-1][genarateSentenceTool.randomInt(0,2)][0]);
+                }
+
+                //adding you or not
+                if(basicStr.contains("reach")){
+                    basicStr= sentenceComponents.SV(Pronouns.FIRST_PERSON,basicStr);
+                }
+                else{
+                    basicStr= sentenceComponents.SVO(Pronouns.FIRST_PERSON,basicStr,Pronouns.SECOND_PERSON);
+                }
+
+                if(this.str==null){
+                    this.str=basicStr;
+                }
+                else{
+                    this.str=sentenceComponents.concatTheSentence(this.str,basicStr);
+                }
+            }
+
             if(!this.isFirstTime){
-                sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
+                this.str=sentenceComponents.concatTheSentence(this.str,againStr[genarateSentenceTool.randomInt(0,2)]);
             }
             this.str=genarateSentenceTool.upperWritingFirstLetter(this.str);
             this.str=genarateSentenceTool.addPunctuation(2,this.str);
         }
-        
+
     }
 
     public UseIntention(int goal, double userIntention, Boolean isFirstTime){
         this.goal=goal;
         this.num=userIntention;
         this.isFirstTime=isFirstTime;
+        this.generate();
     }
 
     public String getUseIntention(){
