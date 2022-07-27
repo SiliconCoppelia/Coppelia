@@ -97,11 +97,13 @@ public class Similarity {
      */
     public String speakOut() {
         double impression = weightCalculator();
-        if (0 < impression && impression < 0.33)
+        if (0 < impression && impression <= 0.25)
             return  "We are totally not alike, that makes me doubt a lot about us";
-        else if (0.33 <= impression && impression < 0.67)
-            return "We are not so alike, that makes me somehow convinced about us";
-        else if (0.67 <= impression && impression < 1)
+        else if (0.26 < impression && impression <= 0.5)
+            return "We are a bit different with each other, that makes me somehow doubt about us";
+        else if (0.5 < impression && impression <= 0.75)
+            return "We are somehow alike, that makes me quite convinced about us";
+        else if (0.75 < impression && impression <= 1)
             return  "We are very alike, that makes me totally convinced about us";
         else throw new NumberFormatException("Hey, total weight has over 1!");
     }

@@ -5,12 +5,16 @@ public class Involvement{
     private final double involvement;
     private final int Goal;
     private final String[] scale = new String[] {"somehow ", "eagerly "};
-    private final String[] invl = new String[] {"struggle ", "try hard ", "try out ", "try ", "willing ", "love "};
+    private final String[] invl = new String[] {"struggle ", "try hard ", "try out ", "try ", "love ", "willing "};
     private final String[] starting = new String[] {
-            "I think I am ",
-            "I think I will ",
-            "I will ",
-            "I think I would like to "
+            "think I am ",
+            "think I will ",
+            "will ",
+            "think I would like to ",
+
+            "refuse to ",
+            "don't even want to ",
+            "can't imagine how I can "
     };
     private final String[] goal = new String[] {
             "to be your friend",
@@ -21,8 +25,9 @@ public class Involvement{
             "to help you",
             "to assist you",
             "to give you a hand",
-            "to help you out"};
-    private final StringBuffer response = new StringBuffer("");
+            "to help you out"
+    };
+    private final StringBuffer response = new StringBuffer("I ");
 
     public Involvement(double involvement, int Goal){
         this.involvement = involvement;
@@ -30,23 +35,25 @@ public class Involvement{
     }
 
     public String getInvolvement(){
-        if(this.involvement <= 0.17){
-            response.append(starting[getRandomNumber(1, 3)]).append(getScale()).append(invl[0]);
+        if(this.involvement <= 0.33){
+            response.append(getScale()).append(starting[getRandomNumber(4, 7)]).append(invl[getRandomNumber(0, 4)]);
         }
-        else if(this.involvement > 0.17 && this.involvement <= 0.34){
-            response.append(starting[getRandomNumber(1, 4)]).append(getScale()).append(invl[1]);
-        }
-        else if(this.involvement > 0.34 && this.involvement <= 0.51){
-            response.append(starting[getRandomNumber(1, 4)]).append(getScale()).append(invl[2]);
-        }
-        else if(this.involvement > 0.51 && this.involvement <= 0.68){
-            response.append(starting[getRandomNumber(1, 4)]).append(getScale()).append(invl[3]);
-        }
-        else if(this.involvement > 0.68 && this.involvement <= 0.85){
-            response.append(starting[0]).append(getScale()).append(invl[4]);
+        else if(this.involvement <= 0.66 && this.involvement > 0.33){
+            if(this.involvement < 0.5){
+                response.append(getScale()).append(starting[getRandomNumber(4, 7)]).append(invl[getRandomNumber(0, 4)]);
+            }
+            else{
+                int i = getRandomNumber(0, 4);
+                if(i == 0){ response.append(starting[i]).append(invl[4]); /* am willing to */ }
+                else if(i == 1 || i == 2){ response.append(starting[i]).append(invl[getRandomNumber(0, 5)]); }
+                else{ response.append(starting[i]).append(invl[getRandomNumber(0, 4)]); }
+            }
         }
         else{
-            response.append(starting[getRandomNumber(1, 3)]).append(getScale()).append(invl[5]);
+            int i = getRandomNumber(0, 4);
+            if(i == 0){ response.append(getScale()).append(starting[i]).append(invl[4]); /* am willing to */ }
+            else if(i == 1 || i == 2){ response.append(getScale()).append(starting[i]).append(invl[getRandomNumber(0, 5)]); }
+            else{ response.append(getScale()).append(starting[i]).append(invl[getRandomNumber(0, 4)]); }
         }
 
         // the Goal
@@ -67,7 +74,7 @@ public class Involvement{
 
     private String getScale(){
         String str = "";
-        if(involvement <= 0.33){
+        if(involvement > 0.33 && involvement <= 0.66){
             str = scale[0];
         }
         else if(involvement > 0.66){
