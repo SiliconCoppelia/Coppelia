@@ -98,11 +98,11 @@ public class Similarity {
     public String speakOut() {
         double impression = weightCalculator();
         if (0 < impression && impression < 0.33)
-            return  "But we are not so alike, that makes me doubt a little about us";
+            return  "We are totally not alike, that makes me doubt a lot about us";
         else if (0.33 <= impression && impression < 0.67)
-            return "Also, we are quite alike, that makes me convinced about us";
+            return "We are not so alike, that makes me somehow convinced about us";
         else if (0.67 <= impression && impression < 1)
-            return  "Yes, we are much alike, that makes me even more convinced about us";
+            return  "We are very alike, that makes me totally convinced about us";
         else throw new NumberFormatException("Hey, total weight has over 1!");
     }
 
@@ -115,7 +115,7 @@ public class Similarity {
         ageJudge();
         kindJudge();
         weightCalculator();
-        return speakOut();
+        return speakOut() + " (" + this.similarity + ")";
     }
 
 }

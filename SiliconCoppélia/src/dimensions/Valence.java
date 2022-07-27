@@ -126,4 +126,8 @@ public class Valence{
         return this.str+" ("+this.valence+")";
     }
 
+    public double getter(){
+        return this.valence;
+    }
+
 }

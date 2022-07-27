@@ -47,7 +47,7 @@ public class Satisfaction {
             "like",
             "appreciate",
             "thank",
-            "satisfied with"
+            "am satisfied with"
     };
 
     //public String[] valenceStr={};
@@ -249,7 +249,8 @@ public class Satisfaction {
         }
     */
     public String getSatisfaction() {
-        return this.str;
+        return this.str + " (" + getter() + ") ";
     }
+    public double getter(){ return this.satisfaction; }
 }
 

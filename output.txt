@@ -1,97 +1,22 @@
-** Agency smiles **
-I see a somewhat friendly face
-(0.114928041692272) You seem to be somewhat a mild personality
-(0.51595166865321) I think it’s relevant for helping you.
-(0.4938360169003354) So maybe things won’t go too well
-
 ** Agency cheats **
-You are cheating
-(0.09029578712415154) You seem to have a mean streak
-(0.33554076256671117) That has little to do with helping you.
-(0.9360890032506801) I have the feeling it will go extremely well between us.
-
-** Agency cheats **
-You are cheating
-(0.7568212940407022) You do not seem to be very gentle
-(0.2835180045858642) That has little to do with being your friend.
-(0.7511826780729505) I am looking forward to what will come from this.
-
-** Agency smiles **
-You seem to have a very friendly face
-(0.6709766796662083) You seem to be too good a person
-(0.2966821831095702) That has little to do with helping you.
-(0.8207494375153278) I am looking forward to what will come from this.
-
-** Agency shows an angry face **
-I found you somewhat angry
-(0.1662793865201424) You seem to have a mean streak
-(0.48048308734588985) I think it’s irrelevant for helping you.
-(0.8335028944390226) My hopes are high we will be fine together.
-
-** Agency cheats **
+** Coppélia wishes to become friend **
 I think you are cheating
-(0.8411297161292941) You do not seem to be very gentle
-(0.5854919878875194) I think it’s relevant for helping you.
-(0.3085424680703662) Because of that, I have little expectations what will come out of this
+Your behavior is unacceptable (0.014102612090688638)
+I think it is totally important to become your friend. (0.9698130855252614)
+Therefore, I have no expectation what will come from this tremendously. (0.08316858210107603)
+We are totally not alike, that makes me doubt a lot about us (0.27184245283750874)
+I think I will try out to be your friend (0.35512653066886796)
+I guess enormously you are a loser. (0.09532717011892661) 
+You can expect my negative evaluation (0.024036973965689823)
 
 ** Agency cheats **
-I think you are cheating
-(0.14673751149035263) Your behavior is unacceptable
-(0.45068804788643646) I think it’s irrelevant for being your friend.
-(0.7478523962196642) That gives me good hope that I can help you 
-
-** Agency smiles **
-I see a very friendly face
-(0.80267773832957) You seem to be very kind
-(0.969098470852016) This is critical to my concern to help you.
-(0.23818481608299624) That makes me fear I cannot help you 
-
-** Agency shows an angry face **
-** Coppélia wishes to help you **
-You seem to be somewhat angry
-(0.040830441877519386) You seem to have a mean streak
-(0.21767704367688567) That is beside the point of helping you.
-(0.8229699648056853) I am looking forward to what will come from this.
-
-** Agency smiles **
-** Coppélia wishes to help you **
-I found you with a very friendly face
-(0.8838972632253076) It seems you are too good a person
-(0.5075034397247791) I think it’s relevant for helping you.
-(0.7309369034040295) That gives me good hope that I can help you 
-
-** Agency smiles **
-** Coppélia wishes to help you **
-You seem to have a friendly face
-(0.4209047600715864) It seems you are a good person
-(0.27052979685466194) That has little to do with helping you.
-(0.45012994012709795) So maybe things won’t go too well
-
-** Agency shows an angry face **
-** Coppélia wishes to help you **
-I think you are very angry
-(0.9821373082739174) You do not seem to be very kind
-(0.09213112363553344) This is totally trivial with respect to my concern to help you.
-(0.7747398654722337) I am looking forward to what will come from this.
-
-** Agency smiles **
-** Coppélia wishes to help you **
-I found you with a friendly face
-(0.6234723584291846) It seems you are gentle
-(0.32610639346353887) That has little to do with helping you.
-(0.037204678894869114) Due to that, helping you being friends will lead to nothing but trouble 
-
-** Agency shows an angry face **
 ** Coppélia wishes to be your friend **
-You seem to be very angry
-(0.7002434950716399) You do not seem to be very kind
-(0.24319210327523588) That is beside the point of being your friend.
-(0.6133784159803315) I expect we will be fine
-
-** Agency cheats **
-** Coppélia wishes to help you **
-I think you are cheating
-(0.47398274850236866) You do not seem to be in a good mood
-(0.5264518825252478) I think it’s relevant for helping you.
-(0.5788224035933239) So I take it we will be Okay
+I found you cheating
+Your behavior is unacceptable (0.2970272972929413)
+It is very relevant for becoming your friend, believe me! (0.7613634858196324)
+Because of that, I have no expectation what will come out of this. (0.4657818812737876)
+We are not so alike, that makes me somehow convinced about us (0.4532285939915414)
+I think I will somehow struggle to be your friend (0.16876247369886116)
+I must say, I am pretty displeased with you. (0.1551893052439004) 
+You can expect my negative review (0.06736600883388227)
 

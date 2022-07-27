@@ -107,6 +107,7 @@ public class SelectAction {
 
 
     public String getSelectAction() {
-        return this.str;
+        return this.str + " (" + getter() + ")";
     }
+    public double getter(){ return this.actTendency; }
 }

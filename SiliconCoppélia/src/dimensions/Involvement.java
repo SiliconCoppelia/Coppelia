@@ -3,6 +3,7 @@ package dimensions;
 
 public class Involvement{
     private final double involvement;
+    private final int Goal;
     private final String[] scale = new String[] {"somehow ", "eagerly "};
     private final String[] invl = new String[] {"struggle ", "try hard ", "try out ", "try ", "willing ", "love "};
     private final String[] starting = new String[] {
@@ -15,11 +16,17 @@ public class Involvement{
             "to be your friend",
             "to be friends with you",
             "to make friends with you",
-            "to be your cuddle buddies"};
+            "to be your cuddle buddies",
+
+            "to help you",
+            "to assist you",
+            "to give you a hand",
+            "to help you out"};
     private final StringBuffer response = new StringBuffer("");
 
-    public Involvement(double involvement){
+    public Involvement(double involvement, int Goal){
         this.involvement = involvement;
+        this.Goal=Goal;
     }
 
     public String getInvolvement(){
@@ -43,11 +50,16 @@ public class Involvement{
         }
 
         // the Goal
-        if(this.involvement < 0.75){
-            response.append(goal[getRandomNumber(0, 3)]);
+        if(this.Goal == 1){
+            if(this.involvement < 0.5){
+                response.append(goal[getRandomNumber(0, 3)]);
+            }
+            else{
+                response.append(goal[getRandomNumber(0, 4)]);
+            }
         }
         else{
-            response.append(goal[getRandomNumber(0, 4)]);
+            response.append(goal[getRandomNumber(4, 8)]);
         }
 
         return response.append(" (").append(this.involvement).append(")").toString();
