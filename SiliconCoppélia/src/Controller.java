@@ -41,6 +41,8 @@ public class Controller {
     private static Satisfaction ethSat;
     private static SelectAction ethAction;
 
+    private static final Affordance aff = new Affordance(affInd, Math.random());
+
     // Responses and final Sentence Construction
     private static final List<String> Responses = new ArrayList<String>();
     private static final StringBuffer response = new StringBuffer("");
@@ -55,6 +57,8 @@ public class Controller {
         EthicsSentenceCreation();
         storeOutput(output, Responses);
         EthicsSentenceFormulation();
+
+        AffordanceCreation();
 
         System.exit(0);
     }
@@ -152,6 +156,17 @@ public class Controller {
 
         System.out.println(response.toString());
     }
+
+    private static void AffordanceCreation(){}
+
+
+    /*
+     *
+     * General Global Tool Functions
+     *
+     * Currently disable getPersonality()
+     * Assume Coppélia is always kind
+     */
 
     private static int getRandomNumber(int min, int max) {
         /*
