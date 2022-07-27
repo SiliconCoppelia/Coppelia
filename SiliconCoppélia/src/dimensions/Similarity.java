@@ -117,4 +117,5 @@ public class Similarity {
         weightCalculator();
         return speakOut();
     }
+
 }

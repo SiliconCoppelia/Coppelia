@@ -4,8 +4,8 @@ import generateRelated.GenarateSentenceTool;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller {
@@ -70,11 +70,12 @@ public class Controller {
         }
 
         //Determine Ethics --> Similarity
+        // added a call example
         if(ethicInd == preference){
-            ethSim = new Similarity(0.1 * getRandomNumber(5, 10));
+            ethSim = new Similarity.Builder(0.1 * getRandomNumber(5, 10)).build();
         }
         else{
-            ethSim = new Similarity(0.1 * getRandomNumber(0, 5));
+            ethSim = new Similarity.Builder(0.1 * getRandomNumber(0, 5)).targetG("male").targetAge(33).build();
         }
 
         //Determine Ethics --> Involvement
@@ -98,7 +99,7 @@ public class Controller {
         Responses.add(eth.getAssessment());             // Ethics Assessment
         Responses.add(ethRel.getRelevance());           // Determine the Relevance
         Responses.add(ethVal.getValence());             // Determine the Valence
-        Responses.add(ethSim.getSimilarity());          // Determine the Similarity
+        Responses.add(ethSim.console());          // Determine the Similarity
         Responses.add(ethInv.getInvolvement());         // Determine the Involvement
         Responses.add(ethSat.getSatisfaction());        // Determine the Satisfaction
         Responses.add(ethAction.getSelectAction());     // Determine the Action
