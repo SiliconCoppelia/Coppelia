@@ -1,8 +1,14 @@
 package dimensions;
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.Math;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
+import java.util.function.IntPredicate;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 /**
  * Similarity -- to calculate the similarity of target and Coppelia
@@ -35,7 +41,8 @@ public class Similarity {
         }
 
         public Similarity build() {
-            return new Similarity(this.targetG, this.targetAge, this.kindness, this.similarityGrade);
+            return new Similarity(this.targetG, this.targetAge, this
+                    .kindness, this.similarityGrade);
         }
 
         public Builder targetG(String targetG) {
@@ -118,6 +125,83 @@ public class Similarity {
         kindJudge();
         weightCalculator();
         return speakOut() + " (" + this.similarity + ")";
+    }
+}
+
+class Coppelia {
+    public Coppelia () {}
+    private final String Gender = "female";
+    private final Age youth = Age.young;
+    final Attractiveness beauty = Attractiveness.attractive;
+    final String condition = "Invulnerable to all poisons";
+}
+
+class Outsider {
+
+    public Outsider() {
+
+    }
+
+}
+
+enum Age{
+    child(IntStream.range(0, 15)),
+    adolescent(IntStream.range(12, 22)),
+    young(IntStream.range(18, 34)),
+    mature(IntStream.range(28, 56)),
+    old(IntStream.range(50, 100));
+
+    private IntStream range = null;
+    Age(IntStream kRange) {
+        this.range = kRange;
+    }
+
+    public IntStream intersection(Age comparable) {
+        IntPredicate testOne = argument -> {
+            for (int num : comparable.range.toArray())
+                if (argument != num) return false;
+            return true;
+        };
+        return this.range.filter(testOne);
+    }
+}
+
+enum Attractiveness {
+    ugly(1.0),
+    unsightly(2.0),
+    average(3.0),
+    attractive(4.0),
+    beautiful(5.0);
+
+    private double proportion = 0.0;
+    Attractiveness (double partial) {
+        this.proportion = partial;
+    }
+
+    public double intersection(double mu, double times, @NotNull Attractiveness target) {
+        if (target.proportion > this.proportion) return  (target.proportion - this.proportion) / times * mu;
+        return (this.proportion - target.proportion) / times * mu;
+    }
+}
+
+class MatrixReader{
+
+    // user input value
+    private double muD;
+    private double alpha;
+    private double beta;
+    private double[][] variables;
+
+    public MatrixReader(double muD, double alpha, double beta, double[][] variables){
+        this.muD = muD;
+        this.alpha = alpha;
+        this.beta = beta;
+        this.variables = variables;
+    }
+
+    public double AhatIntersectBhat() {
+
+        return 0.0;
     }
 
 }
